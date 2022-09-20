@@ -8,4 +8,9 @@ class Board
     @pieces = []
     @dimensions = [x, y]
   end
+
+  def in_bounds?(x_coord, y_coord)
+    x_coord.positive? && x_coord <= dimensions[0] && y_coord.positive? &&
+      y_coord <= dimensions[1]
+  end
 end

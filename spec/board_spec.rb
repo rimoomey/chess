@@ -3,7 +3,7 @@
 require_relative '../lib/board'
 
 describe 'Board' do
-  subject(:board) { Board.new }
+  subject(:board) { Board.new(player_1: 'Sammy', player_2: 'Bob') }
   describe '#initialize' do
     context 'when a new board is created' do
       it 'has no pieces' do
@@ -12,6 +12,14 @@ describe 'Board' do
 
       it 'has dimensions of [8, 8]' do
         expect(board.dimensions).to eql([8, 8])
+      end
+
+      it 'returns first player name' do
+        expect(board.players[0]).to eql('Sammy')
+      end
+
+      it 'returns second player name' do
+        expect(board.players[1]).to eql('Bob')
       end
     end
   end
@@ -45,7 +53,7 @@ describe 'Board' do
   describe '#occupied?' do
     context 'when a piece occupies a given space' do
       before do
-        board.add_piece(piece: Piece.new(x: 1, y: 1, board: board))
+        board.add_piece(piece: Piece.new(x: 1, y: 1, board: board, color: 'b'))
       end
 
       it 'returns true' do
@@ -61,8 +69,8 @@ describe 'Board' do
   end
 
   describe '#move_piece' do
-    let(:piece1) { Piece.new(x: 1, y: 1, board: board) }
-    let(:piece2) { Piece.new(x: 1, y: 2, board: board) }
+    let(:piece1) { Piece.new(x: 1, y: 1, board: board, color: 'w') }
+    let(:piece2) { Piece.new(x: 1, y: 2, board: board, color: 'b') }
 
     context "when there's already a piece there" do
       before do

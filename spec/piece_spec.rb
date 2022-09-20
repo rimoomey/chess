@@ -4,7 +4,7 @@ require_relative '../lib/piece'
 require_relative '../lib/board'
 
 describe 'Piece' do
-  subject(:piece) { Piece.new(x: 2, y: 3, board: board_double) }
+  subject(:piece) { Piece.new(x: 2, y: 3, board: board_double, color: 'W') }
   let(:board_double) { instance_double(Board) }
 
   describe '#initialize' do
@@ -19,6 +19,10 @@ describe 'Piece' do
 
       it 'returns its board' do
         expect(piece.board).to be(board_double)
+      end
+
+      it 'has the correct color' do
+        expect(piece.color).to eql('W')
       end
     end
   end

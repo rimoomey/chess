@@ -3,7 +3,7 @@
 require_relative '../lib/pawn'
 
 describe 'Pawn' do
-  subject(:pawn) { Pawn.new(x: 2, y: 1, board: board)}
+  subject(:pawn) { Pawn.new(x: 2, y: 1, board: board, color: 'W')}
   let(:board) { instance_double(Board) }
 
   describe '#initialize' do

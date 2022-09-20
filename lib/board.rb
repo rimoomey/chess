@@ -2,9 +2,10 @@
 
 # class to represent a chess board
 class Board
-  attr_reader :pieces, :dimensions
+  attr_reader :pieces, :dimensions, :players
 
-  def initialize(x_size: 8, y_size: 8)
+  def initialize(player_1:, player_2:, x_size: 8, y_size: 8)
+    @players = [player_1, player_2]
     @pieces = []
     @dimensions = [x_size, y_size]
   end

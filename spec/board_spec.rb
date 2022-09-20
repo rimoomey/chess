@@ -41,4 +41,22 @@ describe 'Board' do
       end
     end
   end
+
+  describe '#occupied?' do
+    context 'when a piece occupies a given space' do
+      before do
+        board.add_piece(piece: Piece.new(x: 1, y: 1, board: board))
+      end
+
+      it 'returns true' do
+        expect(board.occupied?(x: 1, y: 1)).to be(true)
+      end
+    end
+
+    context 'when a piece does not occupy a given space' do
+      it 'returns false' do
+        expect(board.occupied?(x: 5, y: 4)).to be(false)
+      end
+    end
+  end
 end

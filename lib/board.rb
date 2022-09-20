@@ -9,9 +9,9 @@ class Board
     @dimensions = [x_size, y_size]
   end
 
-  def in_bounds?(coords)
-    coords[0].positive? && coords[0] <= dimensions[0] && coords[1].positive? &&
-      coords[1] <= dimensions[1]
+  def in_bounds?(x:, y:)
+    x.positive? && x <= dimensions[0] && y.positive? &&
+      y <= dimensions[1]
   end
 
   def occupied?(x:, y:)
@@ -23,5 +23,9 @@ class Board
 
   def add_piece(piece:)
     @pieces.push(piece)
+  end
+
+  def move_piece(piece:, x:, y:)
+    piece.move(x: x, y: y) unless occupied?(x: x, y: y) || !in_bounds?(x: x, y: y)
   end
 end

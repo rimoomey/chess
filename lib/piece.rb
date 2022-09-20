@@ -17,9 +17,8 @@ class Piece
     moves.each do |move|
       possible_move_x = current_space[0] + move[0]
       possible_move_y = current_space[1] + move[1]
-      if board.in_bounds?(x: possible_move_x, y: possible_move_y)
-        possibles.push([possible_move_x, possible_move_y])
-      end
+      possibles.push([possible_move_x, possible_move_y]) if
+                        board.in_bounds?(x: possible_move_x, y: possible_move_y)
     end
     possibles
   end

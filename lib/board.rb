@@ -4,13 +4,13 @@
 class Board
   attr_reader :pieces, :dimensions
 
-  def initialize(x: 8, y: 8)
+  def initialize(x_size: 8, y_size: 8)
     @pieces = []
-    @dimensions = [x, y]
+    @dimensions = [x_size, y_size]
   end
 
-  def in_bounds?(x_coord, y_coord)
-    x_coord.positive? && x_coord <= dimensions[0] && y_coord.positive? &&
-      y_coord <= dimensions[1]
+  def in_bounds?(coords)
+    coords[0].positive? && coords[0] <= dimensions[0] && coords[1].positive? &&
+      coords[1] <= dimensions[1]
   end
 end

@@ -2,6 +2,7 @@
 
 require_relative 'piece'
 
+# rook piece for chess
 class Rook < Piece
   def initialize(x:, y:, board:, color:)
     super(x: x, y: y, board: board, color: color)

@@ -20,9 +20,13 @@ describe 'Rook' do
   end
 
   describe '#possible_moves' do
-    context 'when piece is a pawn' do
-      xit 'returns the correct moves' do
-        expect(pawn.possible_moves).to eql([[2, 2], [2, 3], [1, 2], [3, 2]])
+    context 'when piece is a rook at [2, 1]' do
+      it 'returns the correct moves' do
+        expected_moves = [[2, 2], [2, 3], [2, 4], [2, 5],
+                          [2, 5], [2, 6], [2, 7], [2, 8],
+                          [1, 1], [3, 1], [4, 1], [5, 1],
+                          [6, 1], [7, 1], [8, 1]]
+        expect(pawn.possible_moves.difference(expected_moves)).to eql([])
       end
     end
   end

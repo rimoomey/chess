@@ -2,12 +2,11 @@
 
 # class to represent a chess board
 class Board
-  attr_reader :pieces, :players
+  attr_reader :pieces
 
   DIMENSIONS = [8, 8].freeze
 
-  def initialize(player_1:, player_2:)
-    @players = [player_1, player_2]
+  def initialize
     @pieces = []
   end
 

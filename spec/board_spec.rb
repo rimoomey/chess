@@ -3,19 +3,11 @@
 require_relative '../lib/board'
 
 describe 'Board' do
-  subject(:board) { Board.new(player_1: 'Sammy', player_2: 'Bob') }
+  subject(:board) { Board.new }
   describe '#initialize' do
     context 'when a new board is created' do
       it 'has no pieces' do
         expect(board.pieces).to eql([])
-      end
-
-      it 'returns first player name' do
-        expect(board.players[0]).to eql('Sammy')
-      end
-
-      it 'returns second player name' do
-        expect(board.players[1]).to eql('Bob')
       end
     end
   end

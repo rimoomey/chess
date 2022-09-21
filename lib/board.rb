@@ -49,33 +49,41 @@ class Board
   private
 
   def spaces_between(space1, space2)
-    spaces_between = []
-
     if space1[:x] == space2[:x] && space1[:y] == space2[:y]
-      spaces_between.push([space1[:x], space1[:y]])
+      [space1[:x], space1[:y]]
     elsif space1[:x] == space2[:x]
-      spaces_between = vertical_spaces_between(space1, space2)
+      vertical_spaces_between(space1, space2)
     elsif space1[:y] == space2[:y]
-      ((space1[:x] + 1)...space2[:x]).each do |x_index|
-        spaces_between.push([x_index, space1[:y]])
-      end
+      horizontal_spaces_between(space1, space2)
     else
-      8.times do |shift|
-        next unless space1[:x] + shift == space2[:x] && space1[:y] + shift == space2[:y]
-
-        (1...shift).each do |delta|
-          spaces_between.push([space1[:x] + delta, space1[:y] + delta])
-        end
-      end
+      diagonal_spaces_between(space1, space2)
     end
-
-    spaces_between
   end
 
   def vertical_spaces_between(space1, space2)
     spaces_between = []
     ((space1[:y] + 1)...space2[:y]).each do |y_index|
       spaces_between.push([space1[:x], y_index])
+    end
+    spaces_between
+  end
+
+  def horizontal_spaces_between(space1, space2)
+    spaces_between = []
+    ((space1[:x] + 1)...space2[:x]).each do |x_index|
+      spaces_between.push([x_index, space1[:y]])
+    end
+    spaces_between
+  end
+
+  def diagonal_spaces_between(space1, space2)
+    spaces_between = []
+    8.times do |shift|
+      next unless space1[:x] + shift == space2[:x] && space1[:y] + shift == space2[:y]
+
+      (1...shift).each do |delta|
+        spaces_between.push([space1[:x] + delta, space1[:y] + delta])
+      end
     end
     spaces_between
   end

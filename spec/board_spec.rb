@@ -16,8 +16,8 @@ describe 'Board' do
   describe '#piece_blocking_movement?' do
     context 'when piece is not in the way' do
       it 'is false' do
-        expect(board.piece_blocking_movement?(current_x: 2,
-                                              current_y: 3,
+        expect(board.piece_blocking_movement?(x: 2,
+                                              y: 3,
                                               target_x: 2,
                                               target_y: 6)).to be(false)
       end
@@ -28,8 +28,8 @@ describe 'Board' do
         board.add_piece(piece: Piece.new(x: 2, y: 4, board: board, color: 'w') )
       end
       it 'is true' do
-        expect(board.piece_blocking_movement?(current_x: 2,
-                                              current_y: 3,
+        expect(board.piece_blocking_movement?(x: 2,
+                                              y: 3,
                                               target_x: 2,
                                               target_y: 6)).to be(true)
       end
@@ -40,8 +40,8 @@ describe 'Board' do
         board.add_piece(piece: Piece.new(x: 6, y: 3, board: board, color: 'w') )
       end
       it 'is true' do
-        expect(board.piece_blocking_movement?(current_x: 2,
-                                              current_y: 3,
+        expect(board.piece_blocking_movement?(x: 2,
+                                              y: 3,
                                               target_x: 8,
                                               target_y: 3)).to be(true)
       end
@@ -52,8 +52,8 @@ describe 'Board' do
         board.add_piece(piece: Piece.new(x: 5, y: 6, board: board, color: 'w') )
       end
       it 'is true' do
-        expect(board.piece_blocking_movement?(current_x: 2,
-                                              current_y: 3,
+        expect(board.piece_blocking_movement?(x: 2,
+                                              y: 3,
                                               target_x: 6,
                                               target_y: 7)).to be(true)
       end
@@ -119,14 +119,25 @@ describe 'Board' do
       end
     end
 
+    context "when a piece is in the way" do
+      before do
+        board.add_piece(piece: piece1)
+        board.add_piece(piece: piece2)
+      end
+      it 'does not move the piece' do
+        board.move_piece(piece: piece2, x: 1, y: 3)
+        expect(board.pieces[1].current_space).to eql([1, 2])
+      end
+    end
+
     context "when there is not already a piece there" do
       before do
         board.add_piece(piece: piece1)
         board.add_piece(piece: piece2)
       end
       it 'moves the piece' do
-        board.move_piece(piece: piece2, x: 1, y: 3)
-        expect(board.pieces[1].current_space).to eql([1, 3])
+        board.move_piece(piece: piece2, x: 2, y: 2)
+        expect(board.pieces[1].current_space).to eql([2, 2])
       end
     end
   end

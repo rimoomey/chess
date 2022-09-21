@@ -10,8 +10,8 @@ class Board
     @pieces = []
   end
 
-  def piece_blocking_movement?(current_x:, current_y:, target_x:, target_y:)
-    spaces_to_check = spaces_between({ x: current_x, y: current_y },
+  def piece_blocking_movement?(x:, y:, target_x:, target_y:)
+    spaces_to_check = spaces_between({ x: x, y: y },
                                      { x: target_x, y: target_y })
 
     spaces_to_check.each do |space|
@@ -39,7 +39,11 @@ class Board
   end
 
   def move_piece(piece:, x:, y:)
-    piece.move(x: x, y: y) unless occupied?(x: x, y: y) || !in_bounds?(x: x, y: y)
+    piece.move(x: x, y: y) unless occupied?(x: x, y: y) ||
+                                  !in_bounds?(x: x, y: y) ||
+                                  piece_blocking_movement?(x: piece.current_space[0],
+                                                           y: piece.current_space[0],
+                                                           target_x: x, target_y: y)
   end
 
   private

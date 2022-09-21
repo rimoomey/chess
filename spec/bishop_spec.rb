@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../lib/bishop'
+require_relative '../lib/board'
 
 describe 'Bishop' do
   subject(:bishop) { Bishop.new(x: 2, y: 1, board: board, color: 'black') }

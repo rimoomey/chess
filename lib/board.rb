@@ -54,9 +54,7 @@ class Board
     if space1[:x] == space2[:x] && space1[:y] == space2[:y]
       spaces_between.push([space1[:x], space1[:y]])
     elsif space1[:x] == space2[:x]
-      ((space1[:y] + 1)...space2[:y]).each do |y_index|
-        spaces_between.push([space1[:x], y_index])
-      end
+      spaces_between = vertical_spaces_between(space1, space2)
     elsif space1[:y] == space2[:y]
       ((space1[:x] + 1)...space2[:x]).each do |x_index|
         spaces_between.push([x_index, space1[:y]])
@@ -71,6 +69,14 @@ class Board
       end
     end
 
+    spaces_between
+  end
+
+  def vertical_spaces_between(space1, space2)
+    spaces_between = []
+    ((space1[:y] + 1)...space2[:y]).each do |y_index|
+      spaces_between.push([space1[:x], y_index])
+    end
     spaces_between
   end
 end

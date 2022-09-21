@@ -4,7 +4,7 @@ require_relative '../lib/bishop'
 
 describe 'Bishop' do
   subject(:bishop) { Bishop.new(x: 2, y: 1, board: board, color: 'black') }
-  let(:board) { Board.new(player_1: 'dummy1', player_2: 'dummy2', x_size: 8, y_size: 8) }
+  let(:board) { Board.new(player_1: 'dummy1', player_2: 'dummy2') }
 
   describe '#initialize' do
     context 'when piece is a bishop' do

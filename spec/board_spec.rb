@@ -10,10 +10,6 @@ describe 'Board' do
         expect(board.pieces).to eql([])
       end
 
-      it 'has dimensions of [8, 8]' do
-        expect(board.dimensions).to eql([8, 8])
-      end
-
       it 'returns first player name' do
         expect(board.players[0]).to eql('Sammy')
       end

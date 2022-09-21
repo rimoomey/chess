@@ -4,10 +4,58 @@ require_relative '../lib/board'
 
 describe 'Board' do
   subject(:board) { Board.new }
+
   describe '#initialize' do
     context 'when a new board is created' do
       it 'has no pieces' do
         expect(board.pieces).to eql([])
+      end
+    end
+  end
+
+  describe '#piece_blocking_movement?' do
+    context 'when piece is not in the way' do
+      it 'is false' do
+        expect(board.piece_blocking_movement?(current_x: 2,
+                                              current_y: 3,
+                                              target_x: 2,
+                                              target_y: 6)).to be(false)
+      end
+    end
+
+    context 'when a piece is in the way vertically' do
+      before do
+        board.add_piece(piece: Piece.new(x: 2, y: 4, board: board, color: 'w') )
+      end
+      it 'is true' do
+        expect(board.piece_blocking_movement?(current_x: 2,
+                                              current_y: 3,
+                                              target_x: 2,
+                                              target_y: 6)).to be(true)
+      end
+    end
+
+    context 'when a piece is in the way horizontally' do
+      before do
+        board.add_piece(piece: Piece.new(x: 6, y: 3, board: board, color: 'w') )
+      end
+      it 'is true' do
+        expect(board.piece_blocking_movement?(current_x: 2,
+                                              current_y: 3,
+                                              target_x: 8,
+                                              target_y: 3)).to be(true)
+      end
+    end
+
+    context 'when a piece is in the way diagonally' do
+      before do
+        board.add_piece(piece: Piece.new(x: 5, y: 6, board: board, color: 'w') )
+      end
+      it 'is true' do
+        expect(board.piece_blocking_movement?(current_x: 2,
+                                              current_y: 3,
+                                              target_x: 6,
+                                              target_y: 7)).to be(true)
       end
     end
   end

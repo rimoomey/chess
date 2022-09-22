@@ -15,13 +15,4 @@ describe 'King' do
       end
     end
   end
-
-  describe '#possible_moves' do
-    context 'when piece is a King' do
-      it 'has the correct possible moves' do
-        expect(king.possible_moves).to eql([[4, 5], [4, 3], [5, 4], [3, 4],
-                                            [5, 5], [5, 3], [3, 5], [3, 3]])
-      end
-    end
-  end
 end

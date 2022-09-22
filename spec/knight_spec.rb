@@ -15,12 +15,4 @@ describe 'Knight' do
       end
     end
   end
-
-  describe '#possible_moves' do
-    context 'when piece is a Knight' do
-      it 'has the correct possible moves' do
-        expect(knight.possible_moves).to eql([[3, 3], [4, 2], [1, 3]])
-      end
-    end
-  end
 end

@@ -27,14 +27,6 @@ describe 'Piece' do
     end
   end
 
-  describe '#possible_moves' do
-    context 'when it is a generic Piece object' do
-      it 'returns an empty array' do
-        expect(piece.possible_moves).to eql([])
-      end
-    end
-  end
-
   describe '#move' do
     context 'when called with the same space' do
       before do

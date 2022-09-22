@@ -13,15 +13,4 @@ describe 'Pawn' do
       end
     end
   end
-
-  describe '#possible_moves' do
-    before do
-      allow(board).to receive(:in_bounds?).and_return(true).exactly(4).times
-    end
-    context 'when piece is a pawn' do
-      it 'returns the correct moves' do
-        expect(pawn.possible_moves).to eql([[2, 2], [2, 3], [1, 2], [3, 2]])
-      end
-    end
-  end
 end

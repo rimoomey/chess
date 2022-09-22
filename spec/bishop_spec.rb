@@ -20,17 +20,4 @@ describe 'Bishop' do
       end
     end
   end
-
-  describe '#possible_moves' do
-    context 'from starting space [2, 1], possible moves are correct' do
-      before do
-        board.add_piece(piece: bishop)
-      end
-
-      it 'has the moves [1,2], [3,2] [4,3], [5,4], [6,5], [7,6], [8,7]' do
-        expected_moves = [[1, 2], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6], [8, 7]]
-        expect(bishop.possible_moves.difference(expected_moves)).to eql([])
-      end
-    end
-  end
 end

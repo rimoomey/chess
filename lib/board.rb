@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require_relative 'modules/movement'
+
 # class to represent a chess board
 class Board
+  include Movement
+
   attr_reader :pieces
 
   DIMENSIONS = [8, 8].freeze

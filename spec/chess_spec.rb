@@ -31,88 +31,88 @@ describe 'Chess' do
   describe '#new_game' do
     context 'when a new game begins' do
       # check_pawn placement
-      it 'the game board has a white pawn at [1, 2]' do
+      it 'the game board has a white pawn at [2, 1]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 1, y: 2, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 1, color: 'w'))).to be(true)
       end
       it 'the game board has a white pawn at [2, 2]' do
         chess.new_game
         game_board = chess.board
         expect(game_board.pieces.include?(Pawn.new(x: 2, y: 2, color: 'w'))).to be(true)
       end
-      it 'the game board has a white pawn at [3, 2]' do
+      it 'the game board has a white pawn at [2, 3]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 3, y: 2, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 3, color: 'w'))).to be(true)
       end
-      it 'the game board has a white pawn at [4, 2]' do
+      it 'the game board has a white pawn at [2, 4]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 4, y: 2, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 4, color: 'w'))).to be(true)
       end
-      it 'the game board has a white pawn at [5, 2]' do
+      it 'the game board has a white pawn at [2, 5]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 5, y: 2, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 5, color: 'w'))).to be(true)
       end
-      it 'the game board has a white pawn at [6, 2]' do
+      it 'the game board has a white pawn at [2, 6]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 6, y: 2, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 6, color: 'w'))).to be(true)
       end
-      it 'the game board has a white pawn at [7, 2]' do
+      it 'the game board has a white pawn at [2, 7]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 2, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 7, color: 'w'))).to be(true)
       end
-      it 'the game board has a white pawn at [8, 2]' do
+      it 'the game board has a white pawn at [2, 8]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 8, y: 2, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 8, color: 'w'))).to be(true)
       end
 
 
 
-      it 'the game board has a black pawn at [1, 7]' do
+      it 'the game board has a black pawn at [7, 1]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 1, y: 7, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 1, color: 'b'))).to be(true)
       end
-      it 'the game board has a black pawn at [2, 7]' do
+      it 'the game board has a black pawn at [7, 2]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 2, y: 7, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 2, color: 'b'))).to be(true)
       end
-      it 'the game board has a black pawn at [3, 7]' do
+      it 'the game board has a black pawn at [7, 3]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 3, y: 7, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 3, color: 'b'))).to be(true)
       end
-      it 'the game board has a black pawn at [4, 7]' do
+      it 'the game board has a black pawn at [7, 4]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 4, y: 7, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 4, color: 'b'))).to be(true)
       end
-      it 'the game board has a black pawn at [5, 7]' do
+      it 'the game board has a black pawn at [7, 5]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 5, y: 7, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 5, color: 'b'))).to be(true)
       end
-      it 'the game board has a black pawn at [6, 7]' do
+      it 'the game board has a black pawn at [7, 6]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 6, y: 7, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 6, color: 'b'))).to be(true)
       end
       it 'the game board has a black pawn at [7, 7]' do
         chess.new_game
         game_board = chess.board
         expect(game_board.pieces.include?(Pawn.new(x: 7, y: 7, color: 'b'))).to be(true)
       end
-      it 'the game board has a black pawn at [8, 7]' do
+      it 'the game board has a black pawn at [7, 8]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Pawn.new(x: 8, y: 7, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Pawn.new(x: 7, y: 8, color: 'b'))).to be(true)
       end
 
       #check Rook placement
@@ -122,15 +122,15 @@ describe 'Chess' do
         game_board = chess.board
         expect(game_board.pieces.include?(Rook.new(x: 1, y: 1, color: 'w'))).to be(true)
       end
-      it 'the game board has a white rook at [8, 1]' do
+      it 'the game board has a white rook at [1, 8]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Rook.new(x: 8, y: 1, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Rook.new(x: 1, y: 8, color: 'w'))).to be(true)
       end
-      it 'the game board has a black rook at [1, 8]' do
+      it 'the game board has a black rook at [8, 1]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Rook.new(x: 1, y: 8, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Rook.new(x: 8, y: 1, color: 'b'))).to be(true)
       end
       it 'the game board has a black rook at [8, 8]' do
         chess.new_game
@@ -143,22 +143,22 @@ describe 'Chess' do
       it 'the game board has a white bishop at [3, 1]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Bishop.new(x: 3, y: 1, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Bishop.new(x: 1, y: 3, color: 'w'))).to be(true)
       end
       it 'the game board has a white bishop at [6, 1]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Bishop.new(x: 6, y: 1, color: 'w'))).to be(true)
+        expect(game_board.pieces.include?(Bishop.new(x: 1, y: 6, color: 'w'))).to be(true)
       end
       it 'the game board has a black bishop at [3, 8]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Bishop.new(x: 3, y: 8, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Bishop.new(x: 8, y: 3, color: 'b'))).to be(true)
       end
       it 'the game board has a black bishop at [6, 8]' do
         chess.new_game
         game_board = chess.board
-        expect(game_board.pieces.include?(Bishop.new(x: 6, y: 8, color: 'b'))).to be(true)
+        expect(game_board.pieces.include?(Bishop.new(x: 8, y: 6, color: 'b'))).to be(true)
       end
     end
   end

@@ -19,6 +19,7 @@ class Chess
   def new_game
     create_pawns
     create_rooks
+    create_bishops
     PieceFactory::TYPES.each do |key, type|
       if type == Pawn
         # pawns = []
@@ -38,13 +39,13 @@ class Chess
         # rooks.each { |rook| board.add_piece(piece: rook) }
 
       elsif type == Bishop
-        bishops = []
-        bishops.push(PieceFactory.for(type: key, x: 3, y: 1, board: board, color: 'w'))
-        bishops.push(PieceFactory.for(type: key, x: 6, y: 1, board: board, color: 'w'))
-        bishops.push(PieceFactory.for(type: key, x: 3, y: 8, board: board, color: 'b'))
-        bishops.push(PieceFactory.for(type: key, x: 6, y: 8, board: board, color: 'b'))
+        # bishops = []
+        # bishops.push(PieceFactory.for(type: key, x: 3, y: 1, board: board, color: 'w'))
+        # bishops.push(PieceFactory.for(type: key, x: 6, y: 1, board: board, color: 'w'))
+        # bishops.push(PieceFactory.for(type: key, x: 3, y: 8, board: board, color: 'b'))
+        # bishops.push(PieceFactory.for(type: key, x: 6, y: 8, board: board, color: 'b'))
 
-        bishops.each { |bishop| board.add_piece(piece: bishop) }
+        # bishops.each { |bishop| board.add_piece(piece: bishop) }
       end
     end
   end
@@ -69,5 +70,15 @@ class Chess
     rooks.push(PieceFactory.for(type: :rook, x: 8, y: 8, board: board, color: 'b'))
 
     rooks.each { |rook| board.add_piece(piece: rook) }
+  end
+
+  def create_bishops
+    bishops = []
+    bishops.push(PieceFactory.for(type: :bishop, x: 3, y: 1, board: board, color: 'w'))
+    bishops.push(PieceFactory.for(type: :bishop, x: 6, y: 1, board: board, color: 'w'))
+    bishops.push(PieceFactory.for(type: :bishop, x: 3, y: 8, board: board, color: 'b'))
+    bishops.push(PieceFactory.for(type: :bishop, x: 6, y: 8, board: board, color: 'b'))
+
+    bishops.each { |bishop| board.add_piece(piece: bishop) }
   end
 end

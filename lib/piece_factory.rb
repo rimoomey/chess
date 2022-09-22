@@ -7,9 +7,9 @@ require_relative 'bishop'
 class PieceFactory
   TYPES = {
     pawn: Pawn,
-    bishop: Bishop
+    bishop: Bishop,
     #knight: Knight,
-    #rook: Rook,
+    rook: Rook#,
     #queen: queen,
     #king: king
   }.freeze

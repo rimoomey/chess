@@ -27,4 +27,10 @@ class Piece
   def move(x:, y:)
     @current_space = [x, y]
   end
+
+  def ==(other)
+    self.class.name == other.class.name &&
+      current_space == other.current_space &&
+      color == other.color
+  end
 end

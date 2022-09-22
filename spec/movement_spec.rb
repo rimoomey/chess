@@ -5,13 +5,13 @@ require_relative '../lib/board'
 
 describe 'Movement' do
   subject(:board) { Board.new }
-  let(:generic_piece) { Piece.new(x: 1, y: 1, board: board, color: 'w') }
-  let(:pawn) { Pawn.new(x: 1, y: 1, board: board, color: 'w') }
-  let(:rook) { Rook.new(x: 1, y: 1, board: board, color: 'w') }
-  let(:knight) { Knight.new(x: 2, y: 1, board: board, color: 'w') }
-  let(:bishop) { Bishop.new(x: 2, y: 1, board: board, color: 'w') }
-  let(:queen) { Queen.new(x: 4, y: 4, board: board, color: 'w') }
-  let(:king) { King.new(x: 4, y: 4, board: board, color: 'w') }
+  let(:generic_piece) { Piece.new(x: 1, y: 1, color: 'w') }
+  let(:pawn) { Pawn.new(x: 1, y: 1, color: 'w') }
+  let(:rook) { Rook.new(x: 1, y: 1, color: 'w') }
+  let(:knight) { Knight.new(x: 2, y: 1, color: 'w') }
+  let(:bishop) { Bishop.new(x: 2, y: 1, color: 'w') }
+  let(:queen) { Queen.new(x: 4, y: 4, color: 'w') }
+  let(:king) { King.new(x: 4, y: 4, color: 'w') }
 
   describe '#possible_moves' do
 

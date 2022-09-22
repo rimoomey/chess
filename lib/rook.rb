@@ -4,8 +4,8 @@ require_relative 'piece'
 
 # rook piece for chess
 class Rook < Piece
-  def initialize(x:, y:, board:, color:)
-    super(x: x, y: y, board: board, color: color)
+  def initialize(x:, y:, color:)
+    super(x: x, y: y, color: color)
     @moves = rook_moves
   end
 

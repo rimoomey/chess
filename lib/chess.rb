@@ -27,28 +27,28 @@ class Chess
   def create_pawns
     pawns = []
     8.times do |time|
-      pawns.push(PieceFactory.for(type: :pawn, x: 1 + time, y: 2, board: board, color: 'w'))
-      pawns.push(PieceFactory.for(type: :pawn, x: 1 + time, y: 7, board: board, color: 'b'))
+      pawns.push(PieceFactory.for(type: :pawn, x: 1 + time, y: 2, color: 'w'))
+      pawns.push(PieceFactory.for(type: :pawn, x: 1 + time, y: 7, color: 'b'))
     end
     pawns.each { |pawn| board.add_piece(piece: pawn) }
   end
 
   def create_rooks
     rooks = []
-    rooks.push(PieceFactory.for(type: :rook, x: 1, y: 1, board: board, color: 'w'))
-    rooks.push(PieceFactory.for(type: :rook, x: 8, y: 1, board: board, color: 'w'))
-    rooks.push(PieceFactory.for(type: :rook, x: 1, y: 8, board: board, color: 'b'))
-    rooks.push(PieceFactory.for(type: :rook, x: 8, y: 8, board: board, color: 'b'))
+    rooks.push(PieceFactory.for(type: :rook, x: 1, y: 1, color: 'w'))
+    rooks.push(PieceFactory.for(type: :rook, x: 8, y: 1, color: 'w'))
+    rooks.push(PieceFactory.for(type: :rook, x: 1, y: 8, color: 'b'))
+    rooks.push(PieceFactory.for(type: :rook, x: 8, y: 8, color: 'b'))
 
     rooks.each { |rook| board.add_piece(piece: rook) }
   end
 
   def create_bishops
     bishops = []
-    bishops.push(PieceFactory.for(type: :bishop, x: 3, y: 1, board: board, color: 'w'))
-    bishops.push(PieceFactory.for(type: :bishop, x: 6, y: 1, board: board, color: 'w'))
-    bishops.push(PieceFactory.for(type: :bishop, x: 3, y: 8, board: board, color: 'b'))
-    bishops.push(PieceFactory.for(type: :bishop, x: 6, y: 8, board: board, color: 'b'))
+    bishops.push(PieceFactory.for(type: :bishop, x: 3, y: 1, color: 'w'))
+    bishops.push(PieceFactory.for(type: :bishop, x: 6, y: 1, color: 'w'))
+    bishops.push(PieceFactory.for(type: :bishop, x: 3, y: 8, color: 'b'))
+    bishops.push(PieceFactory.for(type: :bishop, x: 6, y: 8, color: 'b'))
 
     bishops.each { |bishop| board.add_piece(piece: bishop) }
   end

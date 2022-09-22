@@ -4,8 +4,8 @@ require_relative 'piece'
 
 # bishop for chess
 class Bishop < Piece
-  def initialize(x:, y:, board:, color:)
-    super(x: x, y: y, board: board, color: color)
+  def initialize(x:, y:, color:)
+    super(x: x, y: y, color: color)
     @moves = bishop_moves
   end
 

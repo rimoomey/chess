@@ -4,8 +4,7 @@ require_relative '../lib/knight'
 require_relative '../lib/board'
 
 describe 'Knight' do
-  subject(:knight) { Knight.new(x: 2, y: 1, board: board, color: 'b') }
-  let(:board) { Board.new }
+  subject(:knight) { Knight.new(x: 2, y: 1, color: 'b') }
 
   describe '#initialize' do
     context 'when piece is a Knight' do

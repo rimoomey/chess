@@ -25,7 +25,7 @@ describe 'Board' do
 
     context 'when a piece is in the way vertically' do
       before do
-        board.add_piece(piece: Piece.new(x: 2, y: 4, board: board, color: 'w') )
+        board.add_piece(piece: Piece.new(x: 2, y: 4, color: 'w') )
       end
       it 'is true' do
         expect(board.piece_blocking_movement?(x: 2,
@@ -37,7 +37,7 @@ describe 'Board' do
 
     context 'when a piece is in the way horizontally' do
       before do
-        board.add_piece(piece: Piece.new(x: 6, y: 3, board: board, color: 'w') )
+        board.add_piece(piece: Piece.new(x: 6, y: 3, color: 'w') )
       end
       it 'is true' do
         expect(board.piece_blocking_movement?(x: 2,
@@ -49,7 +49,7 @@ describe 'Board' do
 
     context 'when a piece is in the way diagonally' do
       before do
-        board.add_piece(piece: Piece.new(x: 5, y: 6, board: board, color: 'w') )
+        board.add_piece(piece: Piece.new(x: 5, y: 6, color: 'w') )
       end
       it 'is true' do
         expect(board.piece_blocking_movement?(x: 2,
@@ -89,7 +89,7 @@ describe 'Board' do
   describe '#occupied?' do
     context 'when a piece occupies a given space' do
       before do
-        board.add_piece(piece: Piece.new(x: 1, y: 1, board: board, color: 'b'))
+        board.add_piece(piece: Piece.new(x: 1, y: 1, color: 'b'))
       end
 
       it 'returns true' do
@@ -105,8 +105,8 @@ describe 'Board' do
   end
 
   describe '#move_piece' do
-    let(:piece1) { Piece.new(x: 1, y: 1, board: board, color: 'w') }
-    let(:piece2) { Piece.new(x: 1, y: 2, board: board, color: 'b') }
+    let(:piece1) { Piece.new(x: 1, y: 1, color: 'w') }
+    let(:piece2) { Piece.new(x: 1, y: 2, color: 'b') }
 
     context "when there's already a piece there" do
       before do

@@ -4,11 +4,10 @@ require_relative 'board'
 
 # superclass for a chess piece
 class Piece
-  attr_reader :current_space, :moves, :board, :color
+  attr_reader :current_space, :moves, :color
 
-  def initialize(x:, y:, board:, color:)
+  def initialize(x:, y:, color:)
     @current_space = [x, y]
-    @board = board
     @color = color
     @moves = []
   end

@@ -19,11 +19,6 @@ describe 'Pawn' do
         pawn.move(x: 2, y: 2)
         expect(pawn.moved).to be(true)
       end
-
-      it 'moves' do
-        pawn.move(x: 2, y: 2)
-        expect(pawn.current_space).to eql([2, 2])
-      end
     end
   end
 end

@@ -58,6 +58,18 @@ describe 'Board' do
                                               target_y: 7)).to be(true)
       end
     end
+
+    context 'when a piece is in the way differently diagonally' do
+      before do
+        board.add_piece(piece: Piece.new(x: 5, y: 6, color: 'w') )
+      end
+      it 'is true' do
+        expect(board.piece_blocking_movement?(x: 4,
+                                              y: 5,
+                                              target_x: 6,
+                                              target_y: 7)).to be(true)
+      end
+    end
   end
 
   describe '#in_bounds?' do

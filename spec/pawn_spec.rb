@@ -15,9 +15,9 @@ describe 'Pawn' do
 
   describe '#move' do
     context 'when a pawn moves' do
-      it 'updates its moved instance' do
+      it 'updates its moves' do
         pawn.move(x: 2, y: 2)
-        expect(pawn.moved).to be(true)
+        expect(pawn.moves).to eql([[0, 1], [-1, 1], [1, 1]])
       end
     end
   end

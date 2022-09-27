@@ -82,11 +82,29 @@ class Board
 
   def diagonal_spaces_between(space1, space2)
     spaces_between = []
-    8.times do |shift|
-      next unless space1[:x] + shift == space2[:x] && space1[:y] + shift == space2[:y]
+    (-8..8).each do |shift|
+      if space1[:x] + shift == space2[:x] && space1[:y] + shift == space2[:y]
+        if shift.positive?
+          (1..shift).each do |delta|
+            spaces_between.push([space1[:x] + delta, space1[:y] + delta])
+          end
+        else
+          (shift..-1).each do |delta|
+            spaces_between.push([space1[:x] + delta, space1[:y] + delta])
+          end
+        end
+      end
 
-      (1...shift).each do |delta|
-        spaces_between.push([space1[:x] + delta, space1[:y] + delta])
+      if space1[:x] - shift == space2[:x] && space1[:y] + shift == space2[:y]
+        if shift.positive?
+          (1..shift).each do |delta|
+            spaces_between.push([space1[:x] - delta, space1[:y] + delta])
+          end
+        else
+          (shift..-1).each do |delta|
+            spaces_between.push([space1[:x] - delta, space1[:y] + delta])
+          end
+        end
       end
     end
     spaces_between

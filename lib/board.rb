@@ -16,8 +16,8 @@ class Board
   end
 
   def in_bounds?(x:, y:)
-    x.positive? && x <= DIMENSIONS[0] && y.positive? &&
-      y <= DIMENSIONS[1]
+    x.positive? && x < DIMENSIONS[0] && y.positive? &&
+      y < DIMENSIONS[1]
   end
 
   def occupied?(x:, y:)
@@ -26,7 +26,7 @@ class Board
     true
   end
 
-  def add_piece(piece:, location: [1, 1])
+  def add_piece(piece:, location: [0, 0])
     @game_state[location[0]][location[1]] = piece
     @pieces.push(piece)
   end

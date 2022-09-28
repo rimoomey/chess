@@ -12,10 +12,10 @@ class PieceFactory
   TYPES = {
     pawn: Pawn,
     bishop: Bishop,
-    #knight: Knight,
-    rook: Rook#,
-    #queen: queen,
-    #king: king
+    knight: Knight,
+    rook: Rook,
+    queen: Queen,
+    king: King
   }.freeze
 
   def self.for(type:, x:, y:, color:)

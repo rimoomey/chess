@@ -21,10 +21,9 @@ class Board
   end
 
   def occupied?(x:, y:)
-    pieces.each do |piece|
-      return true if piece.current_space == [x, y]
-    end
-    false
+    return false if game_state[x][y] == 0
+
+    true
   end
 
   def add_piece(piece:, location: [1, 1])

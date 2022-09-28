@@ -6,11 +6,12 @@ require_relative 'modules/movement'
 class Board
   include Movement
 
-  attr_reader :pieces
+  attr_reader :pieces, :game_state
 
   DIMENSIONS = [8, 8].freeze
 
   def initialize
+    @game_state = empty_board
     @pieces = []
   end
 
@@ -36,5 +37,14 @@ class Board
                                   piece_blocking_movement?(x: piece.current_space[0],
                                                            y: piece.current_space[0],
                                                            target_x: x, target_y: y)
+  end
+
+  private
+
+  def empty_board
+    one_row = [0, 0, 0, 0, 0, 0, 0, 0]
+    board = []
+    8.times { board.push(one_row.clone) }
+    board
   end
 end

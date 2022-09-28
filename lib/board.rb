@@ -27,7 +27,8 @@ class Board
     false
   end
 
-  def add_piece(piece:)
+  def add_piece(piece:, location: [1, 1])
+    @game_state[location[0]][location[1]] = piece
     @pieces.push(piece)
   end
 

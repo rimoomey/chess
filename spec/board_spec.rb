@@ -106,6 +106,18 @@ describe 'Board' do
       end
     end
   end
+
+  describe '#add_piece' do
+    context 'when a piece is added to the board' do
+      before do
+        p = Piece.new(x: 2, y: 3, color: 'w')
+        board.add_piece(piece: p, location: p.current_space)
+      end
+      it 'gets added to game_state[x][y]' do
+        expect(board.game_state[2][3]).to eq(Piece.new(x: 2, y: 3, color: 'w'))
+      end
+    end
+  end
 end
 
 describe 'Movement' do

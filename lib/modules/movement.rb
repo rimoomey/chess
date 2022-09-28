@@ -19,7 +19,7 @@ module Movement
                                      [target_x, target_y])
 
     spaces_to_check.each do |space|
-      return true unless game_state[space[0]][space[1]].eql?(0)
+      return true if occupied?(x: space[0], y: space[1])
     end
     false
   end

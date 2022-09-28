@@ -73,4 +73,45 @@ describe 'Movement' do
       end
     end
   end
+
+  describe '#piece_blocking_movement?' do
+    context 'when there is no piece in the way' do
+      it 'is false' do
+        expect(board.piece_blocking_movement?(x: 1, y: 1, target_x: 3, target_y: 3)).to be(false)
+      end
+    end
+  end
+
+  describe '#piece_blocking_movement?' do
+    context 'when there is a piece in the way vertically' do
+      before do
+        board.add_piece(piece: bishop, location: bishop.current_space)
+      end
+      it 'is false' do
+        expect(board.piece_blocking_movement?(x: 1, y: 1, target_x: 3, target_y: 1)).to be(true)
+      end
+    end
+  end
+
+  describe '#piece_blocking_movement?' do
+    context 'when there is a piece in the way horizontally' do
+      before do
+        board.add_piece(piece: Rook.new(x: 1, y: 2, color: 'b'), location: [1, 2])
+      end
+      it 'is false' do
+        expect(board.piece_blocking_movement?(x: 1, y: 1, target_x: 1, target_y: 3)).to be(true)
+      end
+    end
+  end
+
+  describe '#piece_blocking_movement?' do
+    context 'when there is a piece in the way diagonally' do
+      before do
+        board.add_piece(piece: Rook.new(x: 2, y: 2, color: 'b'), location: [2, 2])
+      end
+      it 'is false' do
+        expect(board.piece_blocking_movement?(x: 3, y: 3, target_x: 1, target_y: 1)).to be(true)
+      end
+    end
+  end
 end

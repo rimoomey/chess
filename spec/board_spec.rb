@@ -54,7 +54,7 @@ describe 'Board' do
   describe '#occupied?' do
     context 'when a piece occupies a given space' do
       before do
-        board.add_piece(piece: Piece.new(x: 1, y: 1, color: 'b'))
+        board.add_piece(piece: Piece.new(x: 1, y: 1, color: 'b'), location: [1, 1])
       end
 
       it 'returns true' do

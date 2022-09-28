@@ -14,13 +14,11 @@ module Movement
   end
 
   def piece_blocking_movement?(x:, y:, target_x:, target_y:)
-    spaces_to_check = spaces_between({ x: x, y: y },
-                                     { x: target_x, y: target_y })
+    spaces_to_check = spaces_between([x, y],
+                                     [target_x, target_y])
 
     spaces_to_check.each do |space|
-      pieces.each do |piece|
-        return true if piece.current_space == space
-      end
+      return true unless game_state[space[0]][space[1]].eql?(0)
     end
     false
   end
@@ -28,11 +26,11 @@ module Movement
   private
 
   def spaces_between(space1, space2)
-    if space1[:x] == space2[:x] && space1[:y] == space2[:y]
-      [space1[:x], space1[:y]]
-    elsif space1[:x] == space2[:x]
+    if space1[0] == space2[0] && space1[1] == space2[1]
+      [space1[0], space1[1]]
+    elsif space1[0] == space2[0]
       vertical_spaces_between(space1, space2)
-    elsif space1[:y] == space2[:y]
+    elsif space1[1] == space2[1]
       horizontal_spaces_between(space1, space2)
     else
       diagonal_spaces_between(space1, space2)
@@ -41,16 +39,16 @@ module Movement
 
   def vertical_spaces_between(space1, space2)
     spaces_between = []
-    ((space1[:y] + 1)...space2[:y]).each do |y_index|
-      spaces_between.push([space1[:x], y_index])
+    ((space1[1] + 1)...space2[1]).each do |y_index|
+      spaces_between.push([space1[0], y_index])
     end
     spaces_between
   end
 
   def horizontal_spaces_between(space1, space2)
     spaces_between = []
-    ((space1[:x] + 1)...space2[:x]).each do |x_index|
-      spaces_between.push([x_index, space1[:y]])
+    ((space1[0] + 1)...space2[0]).each do |x_index|
+      spaces_between.push([x_index, space1[1]])
     end
     spaces_between
   end
@@ -66,14 +64,14 @@ module Movement
 
   def downward_diag(shift, space1, space2)
     downward_diag = []
-    if space1[:x] + shift == space2[:x] && space1[:y] + shift == space2[:y]
+    if space1[0] + shift == space2[0] && space1[1] + shift == space2[1]
       if shift.positive?
         (1..shift).each do |delta|
-          downward_diag.push([space1[:x] + delta, space1[:y] + delta])
+          downward_diag.push([space1[0] + delta, space1[1] + delta])
         end
       else
         (shift..-1).each do |delta|
-          downward_diag.push([space1[:x] + delta, space1[:y] + delta])
+          downward_diag.push([space1[0] + delta, space1[1] + delta])
         end
       end
     end
@@ -82,14 +80,14 @@ module Movement
 
   def upward_diag(shift ,space1, space2)
     upward_diag = []
-    if space1[:x] - shift == space2[:x] && space1[:y] + shift == space2[:y]
+    if space1[0] - shift == space2[0] && space1[1] + shift == space2[1]
       if shift.positive?
         (1..shift).each do |delta|
-          upward_diag.push([space1[:x] - delta, space1[:y] + delta])
+          upward_diag.push([space1[0] - delta, space1[1] + delta])
         end
       else
         (shift..-1).each do |delta|
-          upward_diag.push([space1[:x] - delta, space1[:y] + delta])
+          upward_diag.push([space1[0] - delta, space1[1] + delta])
         end
       end
     end

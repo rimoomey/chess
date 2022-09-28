@@ -7,7 +7,8 @@ class Pawn < Piece
 
   def initialize(x:, y:, color:)
     super(x: x, y: y, color: color)
-    @moves = [[0, 1], [0, 2], [-1, 1], [1, 1]]
+    @moves = [[1, 0], [2, 0], [1, -1], [1, 1]] if color == 'w'
+    @moves = [[-1, 0], [-2, 0], [-1, -1], [-1, 1]] if color == 'b'
   end
 
   def move(x:, y:)

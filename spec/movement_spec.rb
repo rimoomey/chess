@@ -28,9 +28,9 @@ describe 'Movement' do
       end
     end
 
-    context 'when the supplied piece is a pawn' do
+    context 'when the supplied piece is a white pawn' do
       it 'returns three possible moves' do
-        expect(board.possible_moves(piece: pawn)).to eql([[1, 2], [1, 3], [0, 2], [2, 2]])
+        expect(board.possible_moves(piece: pawn)).to eql([[2, 1], [3, 1], [2, 0], [2, 2]])
       end
     end
 
@@ -70,6 +70,16 @@ describe 'Movement' do
       it 'has the correct possible moves' do
         expect(board.possible_moves(piece: king)).to eql([[4, 5], [4, 3], [5, 4], [3, 4],
                                             [5, 5], [5, 3], [3, 5], [3, 3]])
+      end
+    end
+
+    context 'when the supplied piece is a Pawn at [1,1] and theres another piece at [2,1]' do
+      before do
+        board.add_piece(piece: Pawn.new(x: 2, y: 1, color: 'b'), location: [2, 1])
+      end
+      it 'has no possible moves' do
+        expect(board.piece_blocking_movement?(x: 1, y: 1, target_x: 3, target_y: 1)).to be(true)
+        expect(board.possible_moves(piece: pawn)).to eql([[2, 0], [2, 2]])
       end
     end
   end

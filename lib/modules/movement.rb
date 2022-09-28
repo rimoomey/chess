@@ -5,10 +5,11 @@ module Movement
   def possible_moves(piece:)
     possibles = []
     piece.moves.each do |move|
-      possible_move_x = piece.current_space[0] + move[0]
-      possible_move_y = piece.current_space[1] + move[1]
-      possibles.push([possible_move_x, possible_move_y]) if
-                        in_bounds?(x: possible_move_x, y: possible_move_y)
+      x1 = piece.current_space[0]
+      y1 = piece.current_space[1]
+      x2 = x1 + move[0]
+      y2 = y1 + move[1]
+      possibles.push([x2, y2]) if valid_move?(x1: x1, y1: y2, x2: x2, y2: y2)
     end
     possibles
   end
@@ -25,30 +26,35 @@ module Movement
 
   private
 
+  def valid_move?(x1:, y1:, x2:, y2:)
+    in_bounds?(x: x2, y: y2) && !piece_blocking_movement?(x: x1, y: y1, target_x: x2, target_y: y2)
+  end
+
   def spaces_between(space1, space2)
     if space1[0] == space2[0] && space1[1] == space2[1]
       [space1[0], space1[1]]
     elsif space1[0] == space2[0]
-      vertical_spaces_between(space1, space2)
-    elsif space1[1] == space2[1]
       horizontal_spaces_between(space1, space2)
+    elsif space1[1] == space2[1]
+      y = space1[1]
+      vertical_spaces_between(space1[0], space2[0], y)
     else
       diagonal_spaces_between(space1, space2)
     end
   end
 
-  def vertical_spaces_between(space1, space2)
+  def horizontal_spaces_between(space1, space2)
     spaces_between = []
-    ((space1[1] + 1)...space2[1]).each do |y_index|
+    ((space1[1] + 1)..space2[1]).each do |y_index|
       spaces_between.push([space1[0], y_index])
     end
     spaces_between
   end
 
-  def horizontal_spaces_between(space1, space2)
+  def vertical_spaces_between(x1, x2, y)
     spaces_between = []
-    ((space1[0] + 1)...space2[0]).each do |x_index|
-      spaces_between.push([x_index, space1[1]])
+    ((x1 + 1)..x2).each do |x|
+      spaces_between.push([x, y])
     end
     spaces_between
   end

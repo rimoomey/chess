@@ -21,7 +21,7 @@ class Board
   end
 
   def occupied?(x:, y:)
-    return false if game_state[x][y] == 0
+    return false if game_state[x][y].eql?(0)
 
     true
   end

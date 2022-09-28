@@ -35,11 +35,6 @@ module GameState
 
         board_state[i][j] = -board_state[i][j] if piece.color == 'b'
       end
-
-      # i = -i if piece.color.downcase == 'b'
-
-      # board_state[piece.current_space[0] - 1][piece.current_space[1] - 1] = i
-      # i = 0
     end
 
     board_state

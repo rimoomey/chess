@@ -6,13 +6,12 @@ require_relative 'modules/movement'
 class Board
   include Movement
 
-  attr_reader :pieces, :game_state
+  attr_reader :game_state
 
   DIMENSIONS = [8, 8].freeze
 
   def initialize
     @game_state = empty_board
-    @pieces = []
   end
 
   def in_bounds?(x:, y:)
@@ -28,7 +27,6 @@ class Board
 
   def add_piece(piece:, location: [0, 0])
     @game_state[location[0]][location[1]] = piece
-    @pieces.push(piece)
   end
 
   def move_piece(piece:, x:, y:)

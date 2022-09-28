@@ -7,11 +7,6 @@ describe 'Board' do
 
   describe '#initialize' do
     context 'when a new board is created' do
-      it 'has no pieces' do
-        expect(board.pieces).to eql([])
-      end
-
-
       it 'has a 2x2 game_state array full of 0s' do
         expect(board.game_state).to eql([[0, 0, 0, 0, 0, 0, 0, 0],
                                          [0, 0, 0, 0, 0, 0, 0, 0],

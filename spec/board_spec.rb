@@ -10,6 +10,18 @@ describe 'Board' do
       it 'has no pieces' do
         expect(board.pieces).to eql([])
       end
+
+
+      it 'has a 2x2 game_state array full of 0s' do
+        expect(board.game_state).to eql([[0], [0], [0], [0], [0], [0], [0], [0],
+                                         [0], [0], [0], [0], [0], [0], [0], [0],
+                                         [0], [0], [0], [0], [0], [0], [0], [0],
+                                         [0], [0], [0], [0], [0], [0], [0], [0],
+                                         [0], [0], [0], [0], [0], [0], [0], [0],
+                                         [0], [0], [0], [0], [0], [0], [0], [0],
+                                         [0], [0], [0], [0], [0], [0], [0], [0],
+                                         [0], [0], [0], [0], [0], [0], [0], [0]])
+      end
     end
   end
 
@@ -178,67 +190,6 @@ describe 'Movement' do
                                               y: 7,
                                               target_x: 6,
                                               target_y: 5)).to be(true)
-      end
-    end
-  end
-end
-
-describe 'Capture' do
-  subject(:board) { Board.new }
-  let(:queen) { Queen.new(x: 4, y: 4, color: 'b')}
-
-  describe '#capturable_pieces' do
-    context 'when there are no pieces available for capture' do
-      it 'returns nil' do
-        expect(board.capturable_pieces(piece: queen)).to be(nil)
-      end
-    end
-  end
-
-  describe '#capturable_pieces' do
-    context 'when there is one pieces available for capture' do
-      before do
-        board.add_piece(piece: Piece.new(x: 3, y: 4, color: 'w'))
-      end
-      it 'returns that location in an array' do
-        expect(board.capturable_pieces(piece: queen)).to eql([[3, 4]])
-      end
-    end
-  end
-
-  describe '#capturable_pieces' do
-    context 'when there are several pieces available for capture' do
-      before do
-        board.add_piece(piece: Piece.new(x: 3, y: 4, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 5, y: 4, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 4, y: 5, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 4, y: 3, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 5, y: 5, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 3, y: 3, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 5, y: 3, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 3, y: 5, color: 'w'))
-      end
-      it 'returns all their locations in an array' do
-        expect(board.capturable_pieces(piece: queen)).to eql([[3, 4], [5, 4], [4, 5], [4, 3],
-                                                              [5, 5], [3, 3], [5, 3], [3, 5]])
-      end
-    end
-
-    context 'when there are several pieces available for capture, and one that isnt' do
-      before do
-        board.add_piece(piece: Piece.new(x: 3, y: 4, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 5, y: 4, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 4, y: 5, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 4, y: 3, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 5, y: 5, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 3, y: 3, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 5, y: 3, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 3, y: 5, color: 'w'))
-        board.add_piece(piece: Piece.new(x: 6, y: 6, color: 'w'))
-      end
-      it 'returns all their locations in an array' do
-        expect(board.capturable_pieces(piece: queen)).to eql([[3, 4], [5, 4], [4, 5], [4, 3],
-                                                              [5, 5], [3, 3], [5, 3], [3, 5]])
       end
     end
   end

@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 require_relative 'modules/movement'
-require_relative 'modules/capture'
 
 # class to represent a chess board
 class Board
   include Movement
-  include Capture
 
   attr_reader :pieces
 

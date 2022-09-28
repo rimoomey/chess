@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'board'
-
 # superclass for a chess piece
 class Piece
   attr_reader :current_space, :moves, :color

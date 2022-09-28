@@ -32,11 +32,13 @@ class Board
   end
 
   def move_piece(piece:, x:, y:)
-    piece.move(x: x, y: y) unless occupied?(x: x, y: y) ||
-                                  !in_bounds?(x: x, y: y) ||
-                                  piece_blocking_movement?(x: piece.current_space[0],
-                                                           y: piece.current_space[0],
-                                                           target_x: x, target_y: y)
+    curr_loc = piece.current_space
+
+    return if occupied?(x: x, y: y) || !in_bounds?(x: x, y: y) ||
+              piece_blocking_movement?(x: piece.current_space[0], y: piece.current_space[0], target_x: x, target_y: y)
+
+    @game_state[x][y] = piece
+    @game_state[curr_loc[0]][curr_loc[1]] = 0
   end
 
   private

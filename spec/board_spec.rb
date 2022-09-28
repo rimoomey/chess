@@ -75,34 +75,34 @@ describe 'Board' do
 
     context "when there's already a piece there" do
       before do
-        board.add_piece(piece: piece1)
-        board.add_piece(piece: piece2)
+        board.add_piece(piece: piece1, location: piece1.current_space)
+        board.add_piece(piece: piece2, location: piece2.current_space)
       end
       it 'does not move the piece' do
         board.move_piece(piece: piece2, x: 1, y: 1)
-        expect(board.pieces[1].current_space).to eql([1, 2])
+        expect(board.game_state[1][2]).to eql(piece2)
       end
     end
 
     context "when a piece is in the way" do
       before do
-        board.add_piece(piece: piece1)
-        board.add_piece(piece: piece2)
+        board.add_piece(piece: piece1, location: piece1.current_space)
+        board.add_piece(piece: piece2, location: piece2.current_space)
       end
       it 'does not move the piece' do
         board.move_piece(piece: piece2, x: 1, y: 3)
-        expect(board.pieces[1].current_space).to eql([1, 2])
+        expect(board.game_state[1][2]).to eql(piece2)
       end
     end
 
     context "when there is not already a piece there" do
       before do
-        board.add_piece(piece: piece1)
-        board.add_piece(piece: piece2)
+        board.add_piece(piece: piece1, location: piece1.current_space)
+        board.add_piece(piece: piece2, location: piece2.current_space)
       end
       it 'moves the piece' do
         board.move_piece(piece: piece2, x: 2, y: 2)
-        expect(board.pieces[1].current_space).to eql([2, 2])
+        expect(board.game_state[2][2]).to eql(piece2)
       end
     end
   end

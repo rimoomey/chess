@@ -16,7 +16,7 @@ class Board
   end
 
   def in_bounds?(x:, y:)
-    x.positive? && x < DIMENSIONS[0] && y.positive? &&
+    !x.negative? && x < DIMENSIONS[0] && !y.negative? &&
       y < DIMENSIONS[1]
   end
 

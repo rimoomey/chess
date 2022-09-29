@@ -17,9 +17,9 @@ class Board
     @game_state = empty_board
   end
 
-  def in_bounds?(x:, y:)
-    !x.negative? && x < DIMENSIONS[0] && !y.negative? &&
-      y < DIMENSIONS[1]
+  def in_bounds?(point:)
+    !point[0].negative? && point[0] < DIMENSIONS[0] && !point[1].negative? &&
+      point[1] < DIMENSIONS[1]
   end
 
   def occupied?(x:, y:)

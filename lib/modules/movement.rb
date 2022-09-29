@@ -27,7 +27,7 @@ module Movement
   private
 
   def valid_move?(start_loc:, end_loc:)
-    in_bounds?(x: end_loc[0], y: end_loc[1]) && !piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
+    in_bounds?(point: end_loc) && !piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
   end
 
   def spaces_between(space1, space2)

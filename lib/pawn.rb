@@ -16,8 +16,7 @@ class Pawn < Piece
     [[-1, -1], [-1, 1]] if color == 'b'
   end
 
-  def move(x:, y:)
-    super(x: x, y: y)
+  def fewer_moves
     @moves = [[0, 1], [-1, 1], [1, 1]]
   end
 end

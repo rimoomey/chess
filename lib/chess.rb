@@ -22,6 +22,9 @@ class Chess
     create_pawns
     create_rooks
     create_bishops
+    create_knights
+    create_queens
+    create_kings
   end
 
   private
@@ -45,5 +48,22 @@ class Chess
     board.add_piece(piece: PieceFactory.for(type: :bishop, color: 'w'), location: [0, 5])
     board.add_piece(piece: PieceFactory.for(type: :bishop, color: 'b'), location: [7, 2])
     board.add_piece(piece: PieceFactory.for(type: :bishop, color: 'b'), location: [7, 5])
+  end
+
+  def create_knights
+    board.add_piece(piece: PieceFactory.for(type: :knight, color: 'w'), location: [0, 1])
+    board.add_piece(piece: PieceFactory.for(type: :knight, color: 'w'), location: [0, 6])
+    board.add_piece(piece: PieceFactory.for(type: :knight, color: 'b'), location: [7, 1])
+    board.add_piece(piece: PieceFactory.for(type: :knight, color: 'b'), location: [7, 6])
+  end
+
+  def create_queens
+    board.add_piece(piece: PieceFactory.for(type: :queen, color: 'w'), location: [0, 4])
+    board.add_piece(piece: PieceFactory.for(type: :queen, color: 'b'), location: [7, 4])
+  end
+
+  def create_kings
+    board.add_piece(piece: PieceFactory.for(type: :king, color: 'w'), location: [0, 3])
+    board.add_piece(piece: PieceFactory.for(type: :king, color: 'b'), location: [7, 3])
   end
 end

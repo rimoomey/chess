@@ -2,23 +2,24 @@
 
 require_relative '../lib/chess'
 require_relative '../lib/board'
-require_relative '../lib/player'
 require_relative '../lib/pawn'
 require_relative '../lib/rook'
+require_relative '../lib/knight'
+require_relative '../lib/bishop'
+require_relative '../lib/queen'
+require_relative '../lib/king'
 
 describe 'Chess' do
-  subject(:chess) { Chess.new(player1: player1, player2: player2) }
-  let(:player1) { instance_double(Player) }
-  let(:player2) { instance_double(Player) }
+  subject(:chess) { Chess.new(player1: 'bob', player2: 'linda') }
 
   describe '#initialize' do
 
     it 'has a player1' do
-      expect(chess.player1).to be(player1)
+      expect(chess.player1).to eq('bob')
     end
 
     it 'has a player2' do
-      expect(chess.player2).to be(player2)
+      expect(chess.player2).to eq('linda')
     end
   end
 
@@ -151,6 +152,57 @@ describe 'Chess' do
         game_board = chess.board
         expect(game_board.game_state[7][5]).to eq(Bishop.new(color: 'b'))
       end
+
+      #check Knight placement
+
+      it 'the game board has a white knight at [0, 1]' do
+        chess.new_game
+        game_board = chess.board
+        expect(game_board.game_state[0][1]).to eq(Knight.new(color: 'w'))
+      end
+      it 'the game board has a white knight at [0, 6]' do
+        chess.new_game
+        game_board = chess.board
+        expect(game_board.game_state[0][6]).to eq(Knight.new(color: 'w'))
+      end
+      it 'the game board has a black knight at [7, 1]' do
+        chess.new_game
+        game_board = chess.board
+        expect(game_board.game_state[7][1]).to eq(Knight.new(color: 'b'))
+      end
+      it 'the game board has a black knight at [7, 6]' do
+        chess.new_game
+        game_board = chess.board
+        expect(game_board.game_state[7][6]).to eq(Knight.new(color: 'b'))
+      end
+
+      # check Queen placement
+
+      it 'the game board has a white queen at [0, 4]' do
+        chess.new_game
+        game_board = chess.board
+        expect(game_board.game_state[0][4]).to eq(Queen.new(color: 'w'))
+      end
+
+      it 'the game board has a black queen at [0, 4]' do
+        chess.new_game
+        game_board = chess.board
+        expect(game_board.game_state[7][4]).to eq(Queen.new(color: 'b'))
+      end
+    end
+
+    # check King placement
+
+    it 'the game board has a white king at [0, 3]' do
+      chess.new_game
+      game_board = chess.board
+      expect(game_board.game_state[0][3]).to eq(King.new(color: 'w'))
+    end
+
+    it 'the game board has a black king at [7, 3]' do
+      chess.new_game
+      game_board = chess.board
+      expect(game_board.game_state[7][3]).to eq(King.new(color: 'b'))
     end
   end
 end

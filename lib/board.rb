@@ -38,6 +38,7 @@ class Board
 
     return unless possible_moves(piece: piece, place: start_loc).include?(end_loc)
 
+    piece.fewer_moves if piece.instance_of?(Pawn)
     @game_state[end_loc[0]][end_loc[1]] = piece
     @game_state[start_loc[0]][end_loc[1]] = 0
   end

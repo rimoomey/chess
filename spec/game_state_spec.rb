@@ -22,7 +22,7 @@ describe 'GameState' do
 
     context 'when the game board has a pawn at d6' do
       before do
-        game_board.add_piece(piece: Pawn.new(x: 2, y: 3, color: 'w'), location: [2, 3])
+        game_board.add_piece(piece: Pawn.new(color: 'w'), location: [2, 3])
       end
 
       it 'returns a 1 in the proper place' do
@@ -39,8 +39,8 @@ describe 'GameState' do
 
     context 'when the game board has a pawn at d6 and a king at e8' do
       before do
-        game_board.add_piece(piece: Pawn.new(x: 2, y: 3, color: 'w'), location: [2, 3])
-        game_board.add_piece(piece: King.new(x: 0, y: 4, color: 'w'), location: [0, 4])
+        game_board.add_piece(piece: Pawn.new(color: 'w'), location: [2, 3])
+        game_board.add_piece(piece: King.new(color: 'w'), location: [0, 4])
       end
 
       it 'returns a 1 and a 6 in the proper places' do

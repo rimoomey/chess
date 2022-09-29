@@ -4,7 +4,6 @@
 module Capture
   def possible_captures(piece:, place:)
     possibles = []
-    p place
     piece.capture_moves.each do |move|
       x1 = place[0]
       y1 = place[1]

@@ -19,7 +19,7 @@ module Movement
                                      end_loc)
 
     spaces_to_check.each do |space|
-      return true if occupied?(x: space[0], y: space[1])
+      return true if occupied?(point:space)
     end
     false
   end
@@ -27,7 +27,10 @@ module Movement
   private
 
   def valid_move?(start_loc:, end_loc:)
-    in_bounds?(point: end_loc) && !piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
+    return false unless in_bounds?(point: end_loc)
+    return false if piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
+
+    true
   end
 
   def spaces_between(space1, space2)

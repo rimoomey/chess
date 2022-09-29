@@ -22,8 +22,8 @@ class Board
       point[1] < DIMENSIONS[1]
   end
 
-  def occupied?(x:, y:)
-    return false if game_state[x][y].eql?(0)
+  def occupied?(point:)
+    return false if game_state[point[0]][point[1]].eql?(0)
 
     true
   end

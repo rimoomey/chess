@@ -27,31 +27,23 @@ class Chess
   private
 
   def create_pawns
-    pawns = []
     8.times do |time|
-      pawns.push(PieceFactory.for(type: :pawn, x: 1, y: time, color: 'w'))
-      pawns.push(PieceFactory.for(type: :pawn, x: 6, y: time, color: 'b'))
+      board.add_piece(piece: PieceFactory.for(type: :pawn, color: 'w'), location: [1, time])
+      board.add_piece(piece: PieceFactory.for(type: :pawn, color: 'b'), location: [6, time])
     end
-    pawns.each { |pawn| board.add_piece(piece: pawn, location: pawn.current_space) }
   end
 
   def create_rooks
-    rooks = []
-    rooks.push(PieceFactory.for(type: :rook, x: 0, y: 0, color: 'w'))
-    rooks.push(PieceFactory.for(type: :rook, x: 0, y: 7, color: 'w'))
-    rooks.push(PieceFactory.for(type: :rook, x: 7, y: 0, color: 'b'))
-    rooks.push(PieceFactory.for(type: :rook, x: 7, y: 7, color: 'b'))
-
-    rooks.each { |rook| board.add_piece(piece: rook, location: rook.current_space) }
+    board.add_piece(piece: PieceFactory.for(type: :rook, color: 'w'), location: [0, 0])
+    board.add_piece(piece: PieceFactory.for(type: :rook, color: 'w'), location: [0, 7])
+    board.add_piece(piece: PieceFactory.for(type: :rook, color: 'b'), location: [7, 0])
+    board.add_piece(piece: PieceFactory.for(type: :rook, color: 'b'), location: [7, 7])
   end
 
   def create_bishops
-    bishops = []
-    bishops.push(PieceFactory.for(type: :bishop, x: 0, y: 2, color: 'w'))
-    bishops.push(PieceFactory.for(type: :bishop, x: 0, y: 5, color: 'w'))
-    bishops.push(PieceFactory.for(type: :bishop, x: 7, y: 2, color: 'b'))
-    bishops.push(PieceFactory.for(type: :bishop, x: 7, y: 5, color: 'b'))
-
-    bishops.each { |bishop| board.add_piece(piece: bishop, location: bishop.current_space) }
+    board.add_piece(piece: PieceFactory.for(type: :bishop, color: 'w'), location: [0, 2])
+    board.add_piece(piece: PieceFactory.for(type: :bishop, color: 'w'), location: [0, 5])
+    board.add_piece(piece: PieceFactory.for(type: :bishop, color: 'b'), location: [7, 2])
+    board.add_piece(piece: PieceFactory.for(type: :bishop, color: 'b'), location: [7, 5])
   end
 end

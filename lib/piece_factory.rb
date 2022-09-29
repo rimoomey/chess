@@ -18,7 +18,7 @@ class PieceFactory
     king: King
   }.freeze
 
-  def self.for(type:, x:, y:, color:)
-    (TYPES[type] || Piece).new(x: x, y: y, color: color)
+  def self.for(type:, color:)
+    (TYPES[type] || Piece).new(color: color)
   end
 end

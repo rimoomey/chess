@@ -10,6 +10,10 @@ class Piece
     @moves = []
   end
 
+  def capture_moves
+    moves
+  end
+
   def move(x:, y:)
     @current_space = [x, y]
   end

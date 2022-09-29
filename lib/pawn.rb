@@ -11,6 +11,11 @@ class Pawn < Piece
     @moves = [[-1, 0], [-2, 0], [-1, -1], [-1, 1]] if color == 'b'
   end
 
+  def capture_moves
+    [[1, -1], [1, 1]] if color == 'w'
+    [[-1, -1], [-1, 1]] if color == 'b'
+  end
+
   def move(x:, y:)
     super(x: x, y: y)
     @moves = [[0, 1], [-1, 1], [1, 1]]

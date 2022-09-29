@@ -21,25 +21,4 @@ describe 'Piece' do
       end
     end
   end
-
-  describe '#move' do
-    context 'when called with the same space' do
-      before do
-        piece.move(x: 2, y: 3)
-      end
-      it 'returns the same coordinates' do
-        expect(piece.current_space).to eql([2, 3])
-      end
-    end
-
-    context 'when called with a new space' do
-      before do
-        piece.move(x: 3, y: 4)
-      end
-
-      it 'returns the new coordinates' do
-        expect(piece.current_space).to eql([3, 4])
-      end
-    end
-  end
 end

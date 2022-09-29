@@ -25,25 +25,25 @@ describe 'Board' do
   describe '#in_bounds?' do
     context 'when an index is within board dimensions' do
       it 'is true' do
-        expect(board.in_bounds?(x: 1, y: 2)).to be(true)
+        expect(board.in_bounds?(point: [1, 2])).to be(true)
       end
     end
 
     context 'when x is out of bounds' do
       it 'is false' do
-        expect(board.in_bounds?(x: 9, y: 2)).to be(false)
+        expect(board.in_bounds?(point: [8, 2])).to be(false)
       end
     end
 
     context 'when y is out of bounds' do
       it 'is false' do
-        expect(board.in_bounds?(x: 3, y: -9)).to be(false)
+        expect(board.in_bounds?(point: [3, -1])).to be(false)
       end
     end
 
     context 'when x and y are out of bounds' do
       it 'is false' do
-        expect(board.in_bounds?(x: -2,y: 9)).to be(false)
+        expect(board.in_bounds?(point: [-2, 8])).to be(false)
       end
     end
   end

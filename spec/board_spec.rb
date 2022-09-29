@@ -104,6 +104,32 @@ describe 'Board' do
     end
   end
 
+  describe '#capture_piece' do
+    context 'a piece is available for capture' do
+      before do
+        board.add_piece(piece: Rook.new(color: 'w'), location: [4, 4])
+        board.add_piece(piece: Rook.new(color: 'b'), location: [2, 4])
+      end
+      it 'captures the piece' do
+        board.capture_piece(captor_loc: [2, 4], captive_loc: [4, 4])
+        expect(board.game_state[2][4]).to eql(0)
+        expect(board.game_state[4][4]).to eq(Rook.new(color: 'b'))
+      end
+    end
+
+    context 'a piece is blocked' do
+      before do
+        board.add_piece(piece: Rook.new(color: 'w'), location: [4, 4])
+        board.add_piece(piece: Rook.new(color: 'b'), location: [2, 4])
+        board.add_piece(piece: Queen.new(color: 'b'), location: [0, 4])
+      end
+      it 'captures the piece' do
+        board.capture_piece(captor_loc: [0, 4], captive_loc: [4, 4])
+        expect(board.game_state[0][4]).to eq(Queen.new(color: 'b'))
+      end
+    end
+  end
+
   describe '#add_piece' do
     context 'when a piece is added to the board' do
       before do

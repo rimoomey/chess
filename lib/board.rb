@@ -43,6 +43,17 @@ class Board
     @game_state[start_loc[0]][end_loc[1]] = 0
   end
 
+  def capture_piece(captor_loc:, captive_loc:)
+    captor = game_state[captor_loc[0]][captor_loc[1]]
+    return if captor.eql?(0)
+
+    return unless possible_captures(piece: captor, place: captor_loc).include?(captive_loc)
+
+    captor.fewer_moves if captor.instance_of?(Pawn)
+    @game_state[captive_loc[0]][captive_loc[1]] = captor
+    @game_state[captor_loc[0]][captor_loc[1]] = 0
+  end
+
   private
 
   def empty_board

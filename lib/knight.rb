@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require_relative 'piece'
+
 # knight class
 class Knight < Piece
-  def initialize(x:, y:, color:)
-    super(x: x, y: y, color: color)
+  def initialize(color:)
+    super(color: color)
     @moves = [[1, 2], [2, 1], [2, -1], [1, -2],
               [-1, 2], [-2, 1], [-2, -1], [-1, -2]]
   end

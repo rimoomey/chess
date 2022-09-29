@@ -5,8 +5,8 @@ require_relative 'piece'
 # pawn representation--inherits from Piece
 class Pawn < Piece
 
-  def initialize(x:, y:, color:)
-    super(x: x, y: y, color: color)
+  def initialize(color:)
+    super(color: color)
     @moves = [[1, 0], [2, 0], [1, -1], [1, 1]] if color == 'w'
     @moves = [[-1, 0], [-2, 0], [-1, -1], [-1, 1]] if color == 'b'
   end

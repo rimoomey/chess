@@ -3,7 +3,7 @@
 require_relative '../lib/rook'
 
 describe 'Rook' do
-  subject(:pawn) { Rook.new(x: 2, y: 1, color: 'B')}
+  subject(:pawn) { Rook.new(color: 'b')}
 
   describe '#initialize' do
     context 'when piece is a rook' do

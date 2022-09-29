@@ -2,21 +2,21 @@
 
 # module which controls movement on the board
 module Movement
-  def possible_moves(piece:)
+  def possible_moves(piece:, place:)
     possibles = []
     piece.moves.each do |move|
-      x1 = piece.current_space[0]
-      y1 = piece.current_space[1]
+      x1 = place[0]
+      y1 = place[1]
       x2 = x1 + move[0]
       y2 = y1 + move[1]
-      possibles.push([x2, y2]) if valid_move?(x1: x1, y1: y2, x2: x2, y2: y2)
+      possibles.push([x2, y2]) if valid_move?(start_loc: [x1, y1], end_loc: [x2, y2])
     end
     possibles
   end
 
-  def piece_blocking_movement?(x:, y:, target_x:, target_y:)
-    spaces_to_check = spaces_between([x, y],
-                                     [target_x, target_y])
+  def piece_blocking_movement?(start_loc:, end_loc:)
+    spaces_to_check = spaces_between(start_loc,
+                                     end_loc)
 
     spaces_to_check.each do |space|
       return true if occupied?(x: space[0], y: space[1])
@@ -26,8 +26,8 @@ module Movement
 
   private
 
-  def valid_move?(x1:, y1:, x2:, y2:)
-    in_bounds?(x: x2, y: y2) && !piece_blocking_movement?(x: x1, y: y1, target_x: x2, target_y: y2)
+  def valid_move?(start_loc:, end_loc:)
+    in_bounds?(x: end_loc[0], y: end_loc[1]) && !piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
   end
 
   def spaces_between(space1, space2)

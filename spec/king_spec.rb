@@ -4,7 +4,7 @@ require_relative '../lib/king'
 require_relative '../lib/board'
 
 describe 'King' do
-  subject(:king) { King.new(x: 4, y: 4, color: 'b') }
+  subject(:king) { King.new(color: 'b') }
 
   describe '#initialize' do
     context 'when piece is a King' do

@@ -4,7 +4,7 @@ require_relative '../lib/bishop'
 require_relative '../lib/board'
 
 describe 'Bishop' do
-  subject(:bishop) { Bishop.new(x: 2, y: 1, color: 'black') }
+  subject(:bishop) { Bishop.new(color: 'b') }
 
   describe '#initialize' do
     context 'when piece is a bishop' do

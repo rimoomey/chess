@@ -4,8 +4,7 @@
 class Piece
   attr_reader :current_space, :moves, :color
 
-  def initialize(x:, y:, color:)
-    @current_space = [x, y]
+  def initialize(color:)
     @color = color
     @moves = []
   end
@@ -15,8 +14,6 @@ class Piece
   end
 
   def ==(other)
-    self.class.name == other.class.name &&
-      current_space == other.current_space &&
-      color == other.color
+    self.class.name == other.class.name && color == other.color
   end
 end

@@ -32,14 +32,14 @@ class Board
     @game_state[location[0]][location[1]] = piece
   end
 
-  def move_piece(piece:, x:, y:)
-    curr_loc = piece.current_space
+  def move_piece(start_loc:, end_loc:)
+    piece = game_state[start_loc[0]][start_loc[1]]
+    return if piece.eql?(0)
 
-    return if occupied?(x: x, y: y) || !in_bounds?(x: x, y: y) ||
-              piece_blocking_movement?(x: piece.current_space[0], y: piece.current_space[0], target_x: x, target_y: y)
+    return unless possible_moves(piece: piece, place: start_loc).include?(end_loc)
 
-    @game_state[x][y] = piece
-    @game_state[curr_loc[0]][curr_loc[1]] = 0
+    @game_state[end_loc[0]][end_loc[1]] = piece
+    @game_state[start_loc[0]][end_loc[1]] = 0
   end
 
   private

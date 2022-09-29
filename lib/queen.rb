@@ -4,8 +4,8 @@ require_relative 'piece'
 
 # queen piece
 class Queen < Piece
-  def initialize(x:, y:, color:)
-    super(x: x, y: y, color: color)
+  def initialize(color:)
+    super(color: color)
     @moves = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7],
               [0, -1], [0, -2], [0, -3], [0, -4], [0, -5], [0, -6], [0, -7],
               [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0],

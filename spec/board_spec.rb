@@ -55,13 +55,13 @@ describe 'Board' do
       end
 
       it 'returns true' do
-        expect(board.occupied?(x: 1, y: 1)).to be(true)
+        expect(board.occupied?(point: [1, 1])).to be(true)
       end
     end
 
     context 'when a piece does not occupy a given space' do
       it 'returns false' do
-        expect(board.occupied?(x: 5, y: 4)).to be(false)
+        expect(board.occupied?(point: [5, 4])).to be(false)
       end
     end
   end

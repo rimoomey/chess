@@ -3,8 +3,6 @@
 # module for board class to control piece capturing
 module Capture
   def possible_captures(piece:, place:)
-    p piece.class
-    p "starting location: " + place.to_s
     possibles = []
     piece.capture_moves.each do |move|
       x1 = place[0]
@@ -14,14 +12,11 @@ module Capture
 
       possibles.push([x2, y2]) if valid_capture?(piece: piece, start_loc: [x1, y1], end_loc: [x2, y2])
     end
-    p possibles
     possibles
   end
 
   def piece_blocking_capture?(start_loc:, end_loc:)
     spaces_to_check = spaces_between_ex(start_loc, end_loc)
-
-    p spaces_to_check if end_loc[0] == 0 && end_loc[1] == 0
 
     spaces_to_check.each do |space|
       return true if occupied?(point: space)
@@ -91,7 +86,6 @@ module Capture
         end
       else
         ((shift + 1)...-1).each do |delta|
-          p shift
           downward_diag.push([space1[0] + delta, space1[1] + delta])
         end
       end

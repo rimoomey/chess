@@ -2,6 +2,7 @@
 
 require_relative 'chess'
 require_relative 'modules/game_state'
+require_relative 'modules/capture'
 
 # main method
 def main
@@ -12,6 +13,8 @@ def main
   game.board.move_piece(start_loc: [1, 1], end_loc: [3, 1])
 
   GameState.pretty_print(board: game.board)
+
+  p game.board.game_state[0][0].moves
 end
 
 main

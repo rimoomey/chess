@@ -3,19 +3,25 @@
 # module for board class to control piece capturing
 module Capture
   def possible_captures(piece:, place:)
+    p piece.class
+    p "starting location: " + place.to_s
     possibles = []
     piece.capture_moves.each do |move|
       x1 = place[0]
       y1 = place[1]
       x2 = x1 + move[0]
       y2 = y1 + move[1]
+
       possibles.push([x2, y2]) if valid_capture?(piece: piece, start_loc: [x1, y1], end_loc: [x2, y2])
     end
+    p possibles
     possibles
   end
 
   def piece_blocking_capture?(start_loc:, end_loc:)
     spaces_to_check = spaces_between_ex(start_loc, end_loc)
+
+    p spaces_to_check if end_loc[0] == 0 && end_loc[1] == 0
 
     spaces_to_check.each do |space|
       return true if occupied?(point: space)
@@ -40,7 +46,7 @@ module Capture
 
   def spaces_between_ex(space1, space2)
     if space1[0] == space2[0] && space1[1] == space2[1]
-      [space1[0], space1[1]]
+      []
     elsif space1[0] == space2[0]
       horizontal_spaces_between_ex(space1, space2)
     elsif space1[1] == space2[1]
@@ -84,7 +90,8 @@ module Capture
           downward_diag.push([space1[0] + delta, space1[1] + delta])
         end
       else
-        (shift...-1).each do |delta|
+        ((shift + 1)...-1).each do |delta|
+          p shift
           downward_diag.push([space1[0] + delta, space1[1] + delta])
         end
       end
@@ -100,7 +107,7 @@ module Capture
           upward_diag.push([space1[0] - delta, space1[1] + delta])
         end
       else
-        (shift...-1).each do |delta|
+        ((shift + 1)...-1).each do |delta|
           upward_diag.push([space1[0] - delta, space1[1] + delta])
         end
       end

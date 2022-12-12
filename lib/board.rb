@@ -2,12 +2,14 @@
 
 require_relative 'modules/movement'
 require_relative 'modules/capture'
+require_relative 'modules/check'
 require_relative 'modules/game_state'
 
 # class to represent a chess board
 class Board
   include Movement
   include Capture
+  include Check
 
   attr_reader :game_state
 

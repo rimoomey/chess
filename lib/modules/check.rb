@@ -8,6 +8,7 @@ module Check
     game_state.each_with_index do |row, row_num|
       row.each_with_index do |piece, col_num|
         next if piece.instance_of?(Integer)
+        next if location == [row_num, col_num]
 
         return true if possible_captures(piece: piece, place: [row_num, col_num]).include?(location)
       end

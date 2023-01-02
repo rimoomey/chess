@@ -61,6 +61,8 @@ class ChessPlayer
           move2_arr = parse_notation(move: player2_move, color: 'b')
           piece2_to_move = search_for_piece(board: game.board, piece_arr: move2_arr)
         end
+        p valid_second_move
+        p piece2_to_move
         invalid_move unless valid_second_move && !piece2_to_move.nil?
       end
 
@@ -103,6 +105,7 @@ class ChessPlayer
       end
     else
       matches.each do |el|
+        p el
         return el if board.possible_moves(piece: el[:piece], place: el[:loc]).include?(location)
       end
     end

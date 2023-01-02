@@ -18,7 +18,6 @@ module Movement
     spaces_to_check = spaces_between(start_loc,
                                      end_loc)
 
-    p spaces_to_check if end_loc == [1, 1]
     spaces_to_check.each do |space|
       return true if occupied?(point: space)
     end
@@ -50,12 +49,12 @@ module Movement
   def horizontal_spaces_between(space1, space2)
     spaces_between = []
     if space1[1] < space2[1]
-      ((space1[1] + 1)..space2[1]).each do |y_index|
-        spaces_between.push([space1[0], y_index])
+      ((space1[1] + 1)..space2[1]).each do |y|
+        spaces_between.push([space1[0], y])
       end
     else
-      ((space2[1] + 1)..space1[1]).each do |y_index|
-        spaces_between.push([space1[0], y_index])
+      (space2[1]..(space1[1] - 1)).each do |y|
+        spaces_between.push([space1[0], y])
       end
     end
     spaces_between
@@ -68,10 +67,11 @@ module Movement
         spaces_between.push([x, y])
       end
     else
-      ((x2 + 1)..x1).each do |x|
+      (x2..(x1 - 1)).each do |x|
         spaces_between.push([x, y])
       end
     end
+    p spaces_between
     spaces_between
   end
 

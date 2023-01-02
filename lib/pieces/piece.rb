@@ -14,6 +14,6 @@ class Piece
   end
 
   def ==(other)
-    self.class.name == other.class.name && color == other.color
+    instance_of?(other.class) && color == other.color
   end
 end

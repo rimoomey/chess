@@ -44,7 +44,7 @@ class Board
 
     piece.fewer_moves if piece.instance_of?(Pawn)
     @game_state[end_loc[0]][end_loc[1]] = piece
-    @game_state[start_loc[0]][end_loc[1]] = 0
+    @game_state[start_loc[0]][start_loc[1]] = 0
   end
 
   def capture_piece(captor_loc:, captive_loc:)

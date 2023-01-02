@@ -2,6 +2,10 @@
 
 # module to parse algebraic notation for a chess game
 module NotationParsing
+  def quit?(input:)
+    return true if input.downcase == 'q'
+    false
+  end
   def valid_notation?(move:)
     move.scan(/\A[KQRBN]?x?[a-h][1-8]/).include?(move)
   end

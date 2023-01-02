@@ -12,6 +12,7 @@ require_relative '../lib/modules/check'
 require_relative '../lib/modules/game_state'
 require_relative '../lib/modules/movement'
 require_relative '../lib/modules/notation_parsing'
+require_relative '../lib/modules/ui'
 
 require_relative '../lib/pieces/bishop'
 require_relative '../lib/pieces/king'

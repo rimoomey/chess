@@ -14,7 +14,6 @@ module NotationParsing
     return nil if rank_and_file.scan(/\A[a-h][1-8]/).nil?
 
     moves.each do |piece|
-      p piece[:loc] if piece[:loc] == parse_location(loc: rank_and_file.scan(/\A[a-h][1-8]/)[0])
       return piece if piece[:loc] == parse_location(loc: rank_and_file.scan(/\A[a-h][1-8]/)[0])
     end
 

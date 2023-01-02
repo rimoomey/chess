@@ -1,10 +1,9 @@
-require_relative './chess'
-require_relative './modules/game_state'
-require_relative './modules/notation_parsing'
+# frozen_string_literal: true
 
 # class to manage game loop of a chess game
 class ChessPlayer
   include NotationParsing
+  include UI
 
   def start_game
     player1 = prompt_for_name(player_num: 1)
@@ -42,7 +41,6 @@ class ChessPlayer
         invalid_move unless valid_first_move && !matching_pieces.empty?
       end
 
-      p matching_pieces
       if matching_pieces.length > 1
         piece_location = ambiguous_choice
         matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
@@ -107,15 +105,6 @@ class ChessPlayer
     thanks_for_playing
   end
 
-  def ambiguous_choice
-    puts 'Multiple pieces can move here. Please write the rank and file of your choice in algebraic notation. (i.e. d6)'
-    gets.chomp
-  end
-
-  def check_mate(loser_name:, winner_name:)
-    puts "#{loser_name} is in checkmate. #{winner_name} wins!"
-  end
-
   def perform_move(board:, piece:, capture:, to:)
     if capture == 'x'
       board.capture_piece(captor_loc: piece[:loc], captive_loc: to)
@@ -145,28 +134,5 @@ class ChessPlayer
       end
     end
     matching_pieces
-  end
-
-  def prompt_for_move(player_name:)
-    puts "#{player_name}, what is your move? (q to quit)"
-    puts 'Enter in algebraic notation: '
-    gets.chomp
-  end
-
-  def prompt_for_name(player_num:)
-    puts "Player #{player_num}, what is your name?"
-    gets.chomp
-  end
-
-  def invalid_move
-    puts 'please input a legal chess move'
-  end
-
-  def check(player_name:)
-    puts "#{player_name} is in check."
-  end
-
-  def thanks_for_playing
-    puts 'Thank you for playing!'
   end
 end

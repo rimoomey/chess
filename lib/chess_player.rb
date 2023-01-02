@@ -6,6 +6,7 @@ class ChessPlayer
   include UI
 
   def start_game
+    start_up_prompt
     player1 = prompt_for_name(player_num: 1)
     player2 = prompt_for_name(player_num: 2)
     game = Chess.new(player1: player1, player2: player2)
@@ -16,10 +17,10 @@ class ChessPlayer
 
     GameState.pretty_print(board: game.board)
 
-    game_loop(game: game, king1: player1_king, king2: player2_king)
+    play(game: game, king1: player1_king, king2: player2_king)
   end
 
-  def game_loop(game:, king1:, king2:)
+  def play(game:, king1:, king2:)
     quit_game = false
     check_mate = false
     until quit_game || check_mate

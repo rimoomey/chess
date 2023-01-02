@@ -1,6 +1,20 @@
 # frozen_string_literal: true
 
 module UI
+  def start_up_prompt
+    puts "    ____   _   _   ____  _____   _____ \n" \
+         "   //     //  //  //    //      //    \n" \
+         "  //     //__//  //__  //___   //___ \n" \
+         " //     //  //  //        //      // \n" \
+         "//___  //  //  //__  ____//  ____//\n\n\n"
+
+    puts "Welcome to Ruby Chess! Chess is a game that is meant to be played by two players.\n" \
+         "All moves are recorded in algebraic notation for chess.\n\n" \
+         "To read about algebraic notation, please visit this Wikipedia article:\n" \
+         "https://en.wikipedia.org/wiki/Algebraic_notation_(chess)\n\n" \
+         "You may save your game at any time by typing 's' or quit by typing 'q'\n\n\n"
+  end
+
   def prompt_for_move(player_name:)
     puts "#{player_name}, what is your move? (q to quit)"
     puts 'Enter in algebraic notation: '

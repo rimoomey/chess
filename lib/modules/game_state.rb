@@ -39,9 +39,10 @@ module GameState
 
   def self.pretty_print(board:)
     game_state = state(board: board)
-    output = ''
+    output = "  A B C D E F G H\n"
 
     game_state.each_with_index do |row, i|
+      output += "#{i + 1} "
       row.each_with_index do |piece, j|
         case piece
         when 6

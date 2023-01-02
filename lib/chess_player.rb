@@ -45,7 +45,7 @@ class ChessPlayer
 
       unless quit_game || check_mate
         perform_move(board: game.board, piece: piece1_to_move, capture: move1_arr[1], to: move1_arr[2])
-        p 'knight' if piece1_to_move[:piece].instance_of? Knight
+        p 'king' if piece1_to_move[:piece].instance_of? Knight
         king1[:location] = move1_arr[2] if piece1_to_move[:piece].instance_of? King
         GameState.pretty_print(board: game.board)
       end

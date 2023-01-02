@@ -12,15 +12,18 @@ class ChessPlayer
     game = Chess.new(player1: player1, player2: player2)
 
     game.new_game
+    player1_king = { king: game.board.game_state[0][3], location: [0, 3] }
+    player2_king = { king: game.board.game_state[7][3], location: [7, 3] }
 
     GameState.pretty_print(board: game.board)
 
-    game_loop(game: game)
+    game_loop(game: game, king1: player1_king, king2: player2_king)
   end
 
-  def game_loop(game:)
+  def game_loop(game:, king1:, king2:)
     quit_game = false
-    until quit_game
+    check_mate = false
+    until quit_game || check_mate
       valid_first_move = false
       piece1_to_move = nil
       valid_second_move = false
@@ -30,7 +33,7 @@ class ChessPlayer
       until (valid_first_move && !piece1_to_move.nil?) || quit_game
         player1_move = prompt_for_move(player_name: game.player1)
         quit_game = quit?(input: player1_move)
-        break if quit_game
+        break if quit_game || check_mate
 
         valid_first_move = valid_notation?(move: player1_move)
         if valid_first_move
@@ -40,25 +43,28 @@ class ChessPlayer
         invalid_move unless valid_first_move && !piece1_to_move.nil?
       end
 
-      unless quit_game
+      unless quit_game || check_mate
         perform_move(board: game.board, piece: piece1_to_move, capture: move1_arr[1], to: move1_arr[2])
+        p 'knight' if piece1_to_move[:piece].instance_of? Knight
+        king1[:location] = move1_arr[2] if piece1_to_move[:piece].instance_of? King
         GameState.pretty_print(board: game.board)
       end
 
       until (valid_second_move && !piece2_to_move.nil?) || quit_game
         player2_move = prompt_for_move(player_name: game.player2)
         quit_game = quit?(input: player2_move)
-        break if quit_game
+        break if quit_game || check_mate
 
         valid_second_move = valid_notation?(move: player2_move)
         if valid_second_move
           move2_arr = parse_notation(move: player2_move, color: 'b')
           piece2_to_move = search_for_piece(board: game.board, piece_arr: move2_arr)
         end
+        p piece2_to_move
         invalid_move unless valid_second_move && !piece2_to_move.nil?
       end
 
-      unless quit_game
+      unless quit_game || check_mate
         perform_move(board: game.board, piece: piece2_to_move, capture: move2_arr[1], to: move2_arr[2])
         GameState.pretty_print(board: game.board)
       end
@@ -90,7 +96,7 @@ class ChessPlayer
     end
     if capture == 'x'
       matches.each do |el|
-        return el[:piece] if board.possible_captures(piece: el[:piece], place: el[:loc]).include?(location)
+        return el if board.possible_captures(piece: el[:piece], place: el[:loc]).include?(location)
       end
     else
       matches.each do |el|

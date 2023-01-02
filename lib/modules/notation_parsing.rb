@@ -12,8 +12,9 @@ module NotationParsing
 
   def parse_notation(move:, color:)
     piece = parse_piece(piece_notation: move.scan(/\A[KQRBN]?/)[0], color: color)
-    capture = !move.scan(/x?/)[0].nil?
+    capture = move.scan(/x/)[0].nil? ? '' : 'x'
     location = parse_location(loc: move.scan(/[a-h][1-8]/)[0])
+    p [piece, capture, location]
     [piece, capture, location]
   end
 

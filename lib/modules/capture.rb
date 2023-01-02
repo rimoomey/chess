@@ -54,16 +54,28 @@ module Capture
 
   def horizontal_spaces_between_ex(space1, space2)
     spaces_between = []
-    ((space1[1] + 1)...space2[1]).each do |y_index|
-      spaces_between.push([space1[0], y_index])
+    if space1[1] < space2[1]
+      ((space1[1] + 1)...space2[1]).each do |y_index|
+        spaces_between.push([space1[0], y_index])
+      end
+    else
+      ((space2[1] + 1)...space1[1]).each do |y_index|
+        spaces_between.push([space1[0], y_index])
+      end
     end
     spaces_between
   end
 
   def vertical_spaces_between_ex(x1, x2, y)
     spaces_between = []
-    ((x1 + 1)...x2).each do |x|
-      spaces_between.push([x, y])
+    if x1 < x2
+      ((x1 + 1)...x2).each do |x|
+        spaces_between.push([x, y])
+      end
+    else
+      ((x2 + 1)...x1).each do |x|
+        spaces_between.push([x, y])
+      end
     end
     spaces_between
   end

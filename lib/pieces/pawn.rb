@@ -6,8 +6,8 @@ require_relative 'piece'
 class Pawn < Piece
   def initialize(color:)
     super(color: color)
-    @moves = [[1, 0], [2, 0], [1, -1], [1, 1]] if color == 'w'
-    @moves = [[-1, 0], [-2, 0], [-1, -1], [-1, 1]] if color == 'b'
+    @moves = [[1, 0], [2, 0]] if color == 'w'
+    @moves = [[-1, 0], [-2, 0]] if color == 'b'
   end
 
   def capture_moves
@@ -17,7 +17,7 @@ class Pawn < Piece
   end
 
   def fewer_moves
-    @moves = [[1, 0], [1, -1], [1, 1]] if color == 'w'
-    @moves = [[-1, 0], [-1, -1], [-1, 1]] if color == 'b'
+    @moves = [[1, 0]] if color == 'w'
+    @moves = [[-1, 0]] if color == 'b'
   end
 end

@@ -45,9 +45,10 @@ class ChessPlayer
 
       unless quit_game || check_mate
         perform_move(board: game.board, piece: piece1_to_move, capture: move1_arr[1], to: move1_arr[2])
-        p 'king' if piece1_to_move[:piece].instance_of? Knight
         king1[:location] = move1_arr[2] if piece1_to_move[:piece].instance_of? King
         GameState.pretty_print(board: game.board)
+        check(player_name: game.player1) if game.board.check?(location: king1[:location])
+        check(player_name: game.player2) if game.board.check?(location: king2[:location])
       end
 
       until (valid_second_move && !piece2_to_move.nil?) || quit_game
@@ -60,13 +61,15 @@ class ChessPlayer
           move2_arr = parse_notation(move: player2_move, color: 'b')
           piece2_to_move = search_for_piece(board: game.board, piece_arr: move2_arr)
         end
-        p piece2_to_move
         invalid_move unless valid_second_move && !piece2_to_move.nil?
       end
 
       unless quit_game || check_mate
         perform_move(board: game.board, piece: piece2_to_move, capture: move2_arr[1], to: move2_arr[2])
+        king2[:location] = move2_arr[2] if piece2_to_move[:piece].instance_of? King
         GameState.pretty_print(board: game.board)
+        check(player_name: game.player2) if game.board.check?(location: king2[:location])
+        check(player_name: game.player1) if game.board.check?(location: king1[:location])
       end
     end
     thanks_for_playing
@@ -119,6 +122,10 @@ class ChessPlayer
 
   def invalid_move
     puts 'please input a legal chess move'
+  end
+
+  def check(player_name:)
+    puts "#{player_name} is in check."
   end
 
   def thanks_for_playing

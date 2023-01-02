@@ -1,15 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../lib/modules/movement'
-require_relative '../lib/board'
-require_relative '../lib/piece'
-require_relative '../lib/pawn'
-require_relative '../lib/rook'
-require_relative '../lib/knight'
-require_relative '../lib/bishop'
-require_relative '../lib/queen'
-require_relative '../lib/king'
-
 describe 'Movement' do
   subject(:board) { Board.new }
   let(:generic_piece) { Piece.new(color: 'w') }
@@ -30,7 +20,7 @@ describe 'Movement' do
 
     context 'when the supplied piece is a white pawn' do
       it 'returns four possible moves' do
-        expect(board.possible_moves(piece: pawn, place: [0, 1])).to eql([[1, 1], [2, 1], [1, 0], [1, 2]])
+        expect(board.possible_moves(piece: pawn, place: [0, 1])).to eql([[1, 1], [2, 1]])
       end
     end
 
@@ -78,7 +68,7 @@ describe 'Movement' do
         board.add_piece(piece: Pawn.new(color: 'b'), location: [2, 1])
       end
       it 'has no possible moves' do
-        expect(board.possible_moves(piece: pawn, place: [1, 1])).to eql([[2, 0], [2, 2]])
+        expect(board.possible_moves(piece: pawn, place: [1, 1])).to eql([])
       end
     end
   end

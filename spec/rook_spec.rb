@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../lib/rook'
-
 describe 'Rook' do
   subject(:pawn) { Rook.new(color: 'b')}
 

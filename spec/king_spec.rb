@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../lib/king'
-require_relative '../lib/board'
-
 describe 'King' do
   subject(:king) { King.new(color: 'b') }
 

@@ -1,11 +1,3 @@
-require_relative '../lib/king'
-require_relative '../lib/queen'
-require_relative '../lib/rook'
-require_relative '../lib/bishop'
-require_relative '../lib/pawn'
-require_relative '../lib/board'
-require_relative '../lib/modules/game_state'
-require_relative '../lib/modules/check_mate'
 
 describe "CheckMate" do
   subject(:board) { Board.new }

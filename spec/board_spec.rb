@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/board'
-require_relative '../lib/rook'
-require_relative '../lib/queen'
+require_relative '../config/environment'
 
 describe 'Board' do
   subject(:board) { Board.new }
@@ -76,7 +74,9 @@ describe 'Board' do
         board.add_piece(piece: piece2, location: [1, 2])
       end
       it 'does not move the piece' do
+        GameState.pretty_print(board: board)
         board.move_piece(start_loc: [1, 2], end_loc: [1, 1])
+        GameState.pretty_print(board: board)
         expect(board.game_state[1][2]).to eql(piece2)
       end
     end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../lib/modules/game_state'
-
 describe 'GameState' do
   subject(:game) { Chess.new(player1: 'player', player2: 'other_player')}
   let(:game_board) { Board.new }

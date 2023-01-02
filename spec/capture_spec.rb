@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../lib/board'
-require_relative '../lib/piece'
-require_relative '../lib/pawn'
-require_relative '../lib/queen'
-
 describe 'Capture' do
   subject(:board) { Board.new }
   let(:queen) { Queen.new(color: 'b') }
@@ -98,6 +93,17 @@ describe 'Capture' do
 
       it 'returns []' do
         expect(board.possible_captures(piece: w_queen, place: [3, 5])).to eq([])
+      end
+    end
+
+    context 'when the capturing piece is a queen, but a piece is in the way of a target' do
+      before do
+        board.add_piece( piece: Piece.new(color: 'b'), location: [4, 1])
+        board.add_piece( piece: Piece.new(color: 'b'), location: [4, 2])
+      end
+
+      it 'returns [4, 2]' do
+        expect(board.possible_captures(piece: w_queen, place: [4, 4])).to eq([[4, 2]])
       end
     end
   end

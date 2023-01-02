@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/bishop'
-require_relative '../lib/board'
+require_relative '../config/environment'
 
 describe 'Bishop' do
   subject(:bishop) { Bishop.new(color: 'b') }

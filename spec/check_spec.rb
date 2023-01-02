@@ -1,11 +1,5 @@
 #frozen_string_literal: true
 
-require_relative '../lib/king'
-require_relative '../lib/rook'
-require_relative '../lib/bishop'
-require_relative '../lib/board'
-require_relative '../lib/modules/game_state'
-
 describe "Check" do
   subject(:board) { Board.new() }
   let(:king_in_check) { King.new(color: 'b') }

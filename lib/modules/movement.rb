@@ -71,7 +71,6 @@ module Movement
         spaces_between.push([x, y])
       end
     end
-    p spaces_between
     spaces_between
   end
 

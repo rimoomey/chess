@@ -10,11 +10,21 @@ module NotationParsing
     move.scan(/\A[KQRBN]?x?[a-h][1-8]/).include?(move)
   end
 
+  def disambiguate(moves:, rank_and_file:)
+    return nil if rank_and_file.scan(/\A[a-h][1-8]/).nil?
+
+    moves.each do |piece|
+      p piece[:loc] if piece[:loc] == parse_location(loc: rank_and_file.scan(/\A[a-h][1-8]/)[0])
+      return piece if piece[:loc] == parse_location(loc: rank_and_file.scan(/\A[a-h][1-8]/)[0])
+    end
+
+    nil
+  end
+
   def parse_notation(move:, color:)
     piece = parse_piece(piece_notation: move.scan(/\A[KQRBN]?/)[0], color: color)
     capture = move.scan(/x/)[0].nil? ? '' : 'x'
     location = parse_location(loc: move.scan(/[a-h][1-8]/)[0])
-    p [piece, capture, location]
     [piece, capture, location]
   end
 

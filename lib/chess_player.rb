@@ -25,12 +25,11 @@ class ChessPlayer
     check_mate = false
     until quit_game || check_mate
       valid_first_move = false
-      piece1_to_move = nil
       valid_second_move = false
-      piece2_to_move = nil
+      matching_pieces = []
 
       # prompt for moves phase
-      until (valid_first_move && !piece1_to_move.nil?) || quit_game
+      until (valid_first_move && !matching_pieces.empty?) || quit_game
         player1_move = prompt_for_move(player_name: game.player1)
         quit_game = quit?(input: player1_move)
         break if quit_game || check_mate
@@ -38,20 +37,38 @@ class ChessPlayer
         valid_first_move = valid_notation?(move: player1_move)
         if valid_first_move
           move1_arr = parse_notation(move: player1_move, color: 'w')
-          piece1_to_move = search_for_piece(board: game.board, piece_arr: move1_arr)
+          matching_pieces = search_for_piece(board: game.board, piece_arr: move1_arr)
         end
-        invalid_move unless valid_first_move && !piece1_to_move.nil?
+        invalid_move unless valid_first_move && !matching_pieces.empty?
       end
 
-      unless quit_game || check_mate
-        perform_move(board: game.board, piece: piece1_to_move, capture: move1_arr[1], to: move1_arr[2])
-        king1[:location] = move1_arr[2] if piece1_to_move[:piece].instance_of? King
-        GameState.pretty_print(board: game.board)
-        check(player_name: game.player1) if game.board.check?(location: king1[:location])
-        check(player_name: game.player2) if game.board.check?(location: king2[:location])
+      p matching_pieces
+      if matching_pieces.length > 1
+        piece_location = ambiguous_choice
+        matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
       end
 
-      until (valid_second_move && !piece2_to_move.nil?) || quit_game
+      next if quit_game || check_mate
+
+      perform_move(board: game.board, piece: matching_pieces[0], capture: move1_arr[1], to: move1_arr[2])
+      king1[:location] = move1_arr[2] if matching_pieces[0][:piece].instance_of? King
+      GameState.pretty_print(board: game.board)
+      check(player_name: game.player1) if game.board.check?(location: king1[:location])
+      check(player_name: game.player2) if game.board.check?(location: king2[:location])
+      if game.board.check_mate?(king: king1[:king], location: king1[:location])
+        check_mate(loser_name: game.player1, winner_name: game.player2)
+        check_mate = true
+        break
+      end
+      if game.board.check_mate?(king: king2[:king], location: king2[:location])
+        check_mate(loser_name: game.player2, winner_name: game.player1)
+        check_mate = true
+        break
+      end
+
+      matching_pieces = []
+
+      until (valid_second_move && !matching_pieces.empty?) || quit_game
         player2_move = prompt_for_move(player_name: game.player2)
         quit_game = quit?(input: player2_move)
         break if quit_game || check_mate
@@ -59,26 +76,44 @@ class ChessPlayer
         valid_second_move = valid_notation?(move: player2_move)
         if valid_second_move
           move2_arr = parse_notation(move: player2_move, color: 'b')
-          piece2_to_move = search_for_piece(board: game.board, piece_arr: move2_arr)
+          matching_pieces = search_for_piece(board: game.board, piece_arr: move2_arr)
         end
-        p valid_second_move
-        p piece2_to_move
-        invalid_move unless valid_second_move && !piece2_to_move.nil?
+        invalid_move unless valid_second_move && !matching_pieces.empty?
       end
 
-      unless quit_game || check_mate
-        perform_move(board: game.board, piece: piece2_to_move, capture: move2_arr[1], to: move2_arr[2])
-        king2[:location] = move2_arr[2] if piece2_to_move[:piece].instance_of? King
-        GameState.pretty_print(board: game.board)
-        check(player_name: game.player2) if game.board.check?(location: king2[:location])
-        check(player_name: game.player1) if game.board.check?(location: king1[:location])
+      if matching_pieces.length > 1
+        piece_location = ambiguous_choice
+        matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
+      end
+
+      next if quit_game || check_mate
+
+      perform_move(board: game.board, piece: matching_pieces[0], capture: move2_arr[1], to: move2_arr[2])
+      king2[:location] = move2_arr[2] if matching_pieces[0][:piece].instance_of? King
+      GameState.pretty_print(board: game.board)
+      check(player_name: game.player2) if game.board.check?(location: king2[:location])
+      check(player_name: game.player1) if game.board.check?(location: king1[:location])
+      if game.board.check_mate?(king: king1[:king], location: king1[:location])
+        check_mate(loser_name: game.player1, winner_name: game.player2)
+        check_mate = true
+        break
+      end
+      if game.board.check_mate?(king: king2[:king], location: king2[:location])
+        check_mate(loser_name: game.player2, winner_name: game.player1)
+        check_mate = true
+        break
       end
     end
     thanks_for_playing
   end
 
-  def winner?
-    1
+  def ambiguous_choice
+    puts 'Multiple pieces can move here. Please write the rank and file of your choice in algebraic notation. (i.e. d6)'
+    gets.chomp
+  end
+
+  def check_mate(loser_name:, winner_name:)
+    puts "#{loser_name} is in checkmate. #{winner_name} wins!"
   end
 
   def perform_move(board:, piece:, capture:, to:)
@@ -99,17 +134,17 @@ class ChessPlayer
         matches.push({ piece: curr_piece, loc: [row_num, col_num] }) if curr_piece == search_piece
       end
     end
+    matching_pieces = []
     if capture == 'x'
       matches.each do |el|
-        return el if board.possible_captures(piece: el[:piece], place: el[:loc]).include?(location)
+        matching_pieces.push(el) if board.possible_captures(piece: el[:piece], place: el[:loc]).include?(location)
       end
     else
       matches.each do |el|
-        p el
-        return el if board.possible_moves(piece: el[:piece], place: el[:loc]).include?(location)
+        matching_pieces.push(el) if board.possible_moves(piece: el[:piece], place: el[:loc]).include?(location)
       end
     end
-    nil
+    matching_pieces
   end
 
   def prompt_for_move(player_name:)

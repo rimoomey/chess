@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# module for board class to calculate check_mates
+# module for board class to calculate stale_mates
 module StaleMate
   include Check
 
@@ -55,7 +55,7 @@ end
 
 private
 
-def checkmate_not_blocked?(piece:, piece_location:, king:, king_location:)
+def checkmate_not_blocked?(piece:, piece_location:, king_location:)
   unless not_block_by_capture?(king_location: king_location, current_piece: piece, current_piece_location: piece_location)
     return false
   end

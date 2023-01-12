@@ -6,6 +6,8 @@ module CheckMate
 
   def check_mate?(king:, location:)
     return false unless game_state[location[0]][location[1]].instance_of?(King)
+
+    # check mate requires king to be in check
     return false unless check?(location: location)
 
     # check each same-colored piece on the board to see if they can block the check
@@ -53,7 +55,7 @@ end
 
 private
 
-def checkmate_not_blocked?(piece:, piece_location:, king:, king_location:)
+def checkmate_not_blocked?(piece:, piece_location:, king_location:)
   unless not_block_by_capture?(king_location: king_location, current_piece: piece, current_piece_location: piece_location)
     return false
   end

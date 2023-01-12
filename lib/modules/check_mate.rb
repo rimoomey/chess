@@ -15,12 +15,17 @@ module CheckMate
         next if location == [row_num, col_num]
         next if piece.color != king.color
 
-        return false unless checkmate_not_blocked?(piece: piece, piece_location: [row_num, col_num], king: king, king_location: location)
+        unless checkmate_not_blocked?(piece: piece, piece_location: [row_num, col_num], king: king, king_location: location)
+          return false
+        end
       end
     end
 
+    # check the king to see if he can move out of check by a capture
     possible_captures(piece: king, place: location).each do |capture|
       piece = game_state[capture[0]][capture[1]]
+
+      # perform the capture to see if it causes king to move out of check, undo afterwards
       capture_piece(captor_loc: location, captive_loc: capture)
       unless check?(location: capture)
         add_piece(piece: piece, location: capture)
@@ -31,8 +36,9 @@ module CheckMate
       add_piece(piece: king, location: location)
     end
 
+    # check the king to see if he can move out of check by a non-capture
     possible_moves(piece: king, place: location).each do |move|
-      # add the king to that potential move to see if it would be in check, remove afterwards
+      # move the king to see if it would be in check, remove afterwards
       move_piece(start_loc: location, end_loc: move)
       unless check?(location: move)
         move_piece(start_loc: move, end_loc: location)
@@ -48,43 +54,13 @@ end
 private
 
 def checkmate_not_blocked?(piece:, piece_location:, king:, king_location:)
-  # game_state.each_with_index do |row, row_num|
-  #   row.each_with_index do |piece, col_num|
-      # next if piece.instance_of?(Integer)
-      # next if king_location == [row_num, col_num]
-      # next if piece.color != king.color
+  unless not_block_by_capture?(king_location: king_location, current_piece: piece, current_piece_location: piece_location)
+    return false
+  end
+  unless not_block_by_movement?(king_location: king_location, current_piece: piece, current_piece_location: piece_location)
+    return false
+  end
 
-      unless not_block_by_capture?(king_location: king_location, current_piece: piece, current_piece_location: piece_location)
-        return false
-      end
-      unless not_block_by_movement?(king_location: king_location, current_piece: piece, current_piece_location: piece_location)
-        return false
-      end
-
-      # possible_captures(piece: piece, place: [row_num, col_num]).each do |capture|
-      #   captured_piece = game_state[capture[0], capture[1]]
-      #   capture_piece(captor_loc: [row_num, col_num], captive_loc: capture)
-
-      #   unless check?(location: king_location)
-      #     add_piece(piece: captured_piece, location: capture)
-      #     add_piece(piece: piece, location: [row_num, col_num])
-      #     return false
-      #   end
-      #   add_piece(piece: captured_piece, location: capture)
-      #   add_piece(piece: piece, location: [row_num, col_num])
-      # end
-
-      # possible_moves(piece: piece, place: [row_num, col_num]).each do |move|
-      #   move_piece(start_loc: [row_num, col_num], end_loc: move)
-
-      #   unless check?(location: king_location)
-      #     move_piece(start_loc: move, end_loc: [row_num, col_num])
-      #     return false
-      #   end
-      #   move_piece(start_loc: move, end_loc: [row_num, col_num])
-      # end
-  #   end
-  # end
   true
 end
 

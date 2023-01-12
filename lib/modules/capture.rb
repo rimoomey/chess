@@ -98,7 +98,7 @@ module Capture
           downward_diag.push([space1[0] + delta, space1[1] + delta])
         end
       else
-        ((shift + 1)...-1).each do |delta|
+        ((shift + 1)..-1).each do |delta|
           downward_diag.push([space1[0] + delta, space1[1] + delta])
         end
       end
@@ -114,7 +114,7 @@ module Capture
           upward_diag.push([space1[0] - delta, space1[1] + delta])
         end
       else
-        ((shift + 1)...-1).each do |delta|
+        ((shift + 1)..-1).each do |delta|
           upward_diag.push([space1[0] - delta, space1[1] + delta])
         end
       end

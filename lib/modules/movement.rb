@@ -35,9 +35,6 @@ module Movement
     elsif piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
       return false
     end
-
-    # return false if piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
-
     true
   end
 

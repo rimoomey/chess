@@ -16,8 +16,10 @@ class Pawn < Piece
     [[-1, -1], [-1, 1]] if color == 'b'
   end
 
-  def fewer_moves
-    @moves = [[1, 0]] if color == 'w'
-    @moves = [[-1, 0]] if color == 'b'
+  def moves
+    return @moves if times_moved < 1
+
+    [[1, 0]] if color == 'w'
+    [[-1, 0]] if color == 'b'
   end
 end

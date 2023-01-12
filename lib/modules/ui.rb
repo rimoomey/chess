@@ -50,4 +50,8 @@ module UI
   def check_mate(loser_name:, winner_name:)
     puts "#{loser_name} is in checkmate. #{winner_name} wins!"
   end
+
+  def stale_mate
+    puts "The game has reached a stalemate. It's a draw."
+  end
 end

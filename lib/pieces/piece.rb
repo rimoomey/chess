@@ -2,11 +2,20 @@
 
 # superclass for a chess piece
 class Piece
-  attr_reader :current_space, :moves, :color
+  attr_reader :times_moved, :moves, :color
 
   def initialize(color:)
     @color = color
+    @times_moved = 0
     @moves = []
+  end
+
+  def moved_once
+    @times_moved += 1
+  end
+
+  def decrement_moves
+    @times_moved -= 1
   end
 
   def capture_moves

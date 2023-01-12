@@ -24,8 +24,8 @@ class ChessPlayer
 
   def play(game:, king1:, king2:)
     quit_game = false
-    check_mate = false
-    until quit_game || check_mate
+    # check_mate = false
+    until quit_game
       valid_first_move = false
       valid_second_move = false
       matching_pieces = []
@@ -34,7 +34,7 @@ class ChessPlayer
       until (valid_first_move && !matching_pieces.empty?) || quit_game
         player1_move = prompt_for_move(player_name: game.player1)
         quit_game = quit?(input: player1_move)
-        break if quit_game || check_mate
+        break if quit_game
 
         valid_first_move = valid_notation?(move: player1_move)
         if valid_first_move
@@ -67,21 +67,26 @@ class ChessPlayer
 
       GameState.pretty_print(board: game.board)
 
-      puts 'king 1 location: '
-      p king1[:location]
-
-      puts 'king 2 location: '
-      p king2[:location]
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
-        check_mate = true
+        # check_mate = true
         break
       end
       if game.board.check_mate?(king: king2[:king], location: king2[:location])
         check_mate(loser_name: game.player2, winner_name: game.player1)
-        check_mate = true
+        # check_mate = true
         break
       end
+      if game.board.stale_mate?(king: king1[:king], location: king1[:location])
+        stale_mate
+        break
+      end
+      if game.board.stale_mate?(king: king2[:king], location: king2[:location])
+        stale_mate
+        break
+      end
+
+      GameState.pretty_print(board: game.board)
 
       check(player_name: game.player1) if game.board.check?(location: king1[:location])
       check(player_name: game.player2) if game.board.check?(location: king2[:location])
@@ -92,7 +97,7 @@ class ChessPlayer
       until (valid_second_move && !matching_pieces.empty?) || quit_game
         player2_move = prompt_for_move(player_name: game.player2)
         quit_game = quit?(input: player2_move)
-        break if quit_game || check_mate
+        break if quit_game
 
         valid_second_move = valid_notation?(move: player2_move)
         if valid_second_move
@@ -107,8 +112,10 @@ class ChessPlayer
           matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
         end
 
+        GameState.pretty_print(board: game.board)
         captured_piece = game.board.game_state[move2_arr[2][0]][move2_arr[2][1]] if move2_arr[1] == 'x'
         perform_move(board: game.board, piece: matching_pieces[0], capture: move2_arr[1], to: move2_arr[2])
+        GameState.pretty_print(board: game.board)
         pre_move_king_loc = king2[:location]
         king2[:location] = move2_arr[2] if matching_pieces[0][:piece].instance_of? King
 
@@ -124,19 +131,22 @@ class ChessPlayer
 
       GameState.pretty_print(board: game.board)
 
-      puts 'king 1 location: '
-      p king1[:location]
-
-      puts 'king 2 location: '
-      p king2[:location]
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
-        check_mate = true
+        # check_mate = true
         break
       end
       if game.board.check_mate?(king: king2[:king], location: king2[:location])
         check_mate(loser_name: game.player2, winner_name: game.player1)
-        check_mate = true
+        # check_mate = true
+        break
+      end
+      if game.board.stale_mate?(king: king1[:king], location: king1[:location])
+        stale_mate
+        break
+      end
+      if game.board.stale_mate?(king: king2[:king], location: king2[:location])
+        stale_mate
         break
       end
 
@@ -147,6 +157,8 @@ class ChessPlayer
   end
 
   def perform_move(board:, piece:, capture:, to:)
+    p capture
+    p to
     if capture == 'x'
       board.capture_piece(captor_loc: piece[:loc], captive_loc: to)
     else
@@ -159,6 +171,7 @@ class ChessPlayer
 
     board.add_piece(piece: captured_piece, location: to)
     board.add_piece(piece: piece[:piece], location: piece[:loc])
+    piece[:piece].decrement_moves
   end
 
   def search_for_piece(board:, piece_arr:)

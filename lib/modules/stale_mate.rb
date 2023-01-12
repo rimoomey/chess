@@ -17,7 +17,7 @@ module StaleMate
         next if location == [row_num, col_num]
         next if piece.color != king.color
 
-        unless checkmate_not_blocked?(piece: piece, piece_location: [row_num, col_num], king: king, king_location: location)
+        unless checkmate_not_blocked?(piece: piece, piece_location: [row_num, col_num], king_location: location)
           return false
         end
       end
@@ -74,23 +74,30 @@ def not_block_by_capture?(king_location:, current_piece:, current_piece_location
     unless check?(location: king_location)
       add_piece(piece: captured_piece, location: capture)
       add_piece(piece: current_piece, location: current_piece_location)
+      current_piece.decrement_moves
       return false
     end
     add_piece(piece: captured_piece, location: capture)
     add_piece(piece: current_piece, location: current_piece_location)
+    current_piece.decrement_moves
   end
   true
 end
 
 def not_block_by_movement?(king_location:, current_piece:, current_piece_location:)
   possible_moves(piece: current_piece, place: current_piece_location).each do |move|
+    GameState.pretty_print(board: self)
     move_piece(start_loc: current_piece_location, end_loc: move)
 
     unless check?(location: king_location)
-      move_piece(start_loc: move, end_loc: current_piece_location)
+      add_piece(piece: current_piece, location: current_piece_location)
+      add_piece(piece: 0, location: move)
+      current_piece.decrement_moves
       return false
     end
-    move_piece(start_loc: move, end_loc: current_piece_location)
+    add_piece(piece: current_piece, location: current_piece_location)
+    add_piece(piece: 0, location: move)
+    current_piece.decrement_moves
   end
   true
 end

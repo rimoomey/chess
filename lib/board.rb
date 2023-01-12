@@ -43,7 +43,7 @@ class Board
 
     return unless possible_moves(piece: piece, place: start_loc).include?(end_loc)
 
-    piece.fewer_moves if piece.instance_of?(Pawn)
+    piece.moved_once
     @game_state[end_loc[0]][end_loc[1]] = piece
     @game_state[start_loc[0]][start_loc[1]] = 0
   end
@@ -54,7 +54,7 @@ class Board
 
     return unless possible_captures(piece: captor, place: captor_loc).include?(captive_loc)
 
-    captor.fewer_moves if captor.instance_of?(Pawn)
+    captor.moved_once
     @game_state[captive_loc[0]][captive_loc[1]] = captor
     @game_state[captor_loc[0]][captor_loc[1]] = 0
   end

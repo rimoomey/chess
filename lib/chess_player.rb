@@ -43,7 +43,7 @@ class ChessPlayer
         end
 
         invalid_move unless valid_first_move && !matching_pieces.empty?
-        next unless valid_first_move
+        next unless valid_first_move && !matching_pieces.empty?
 
         if matching_pieces.length > 1
           piece_location = ambiguous_choice
@@ -57,8 +57,6 @@ class ChessPlayer
 
         next unless game.board.check?(location: king1[:location])
 
-        GameState.pretty_print(board: game.board)
-
         reverse_move(board: game.board, piece: matching_pieces[0], captured_piece: captured_piece, to: move1_arr[2])
         king1[:location] = pre_move_king_loc
         no_moving_into_check
@@ -67,12 +65,13 @@ class ChessPlayer
 
       next if quit_game
 
-      captured_piece = game.board.game_state[move1_arr[2][0]][move1_arr[2][1]] if move1_arr[1] == 'x'
-      perform_move(board: game.board, piece: matching_pieces[0], capture: move1_arr[1], to: move1_arr[2])
-
-      king1[:location] = move1_arr[2] if matching_pieces[0][:piece].instance_of? King
       GameState.pretty_print(board: game.board)
 
+      puts 'king 1 location: '
+      p king1[:location]
+
+      puts 'king 2 location: '
+      p king2[:location]
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
         check_mate = true
@@ -101,7 +100,7 @@ class ChessPlayer
           matching_pieces = search_for_piece(board: game.board, piece_arr: move2_arr)
         end
         invalid_move unless valid_second_move && !matching_pieces.empty?
-        next unless valid_second_move
+        next unless valid_second_move && !matching_pieces.empty?
 
         if matching_pieces.length > 1
           piece_location = ambiguous_choice
@@ -123,10 +122,13 @@ class ChessPlayer
 
       next if quit_game
 
-      perform_move(board: game.board, piece: matching_pieces[0], capture: move2_arr[1], to: move2_arr[2])
-      king2[:location] = move2_arr[2] if matching_pieces[0][:piece].instance_of? King
       GameState.pretty_print(board: game.board)
 
+      puts 'king 1 location: '
+      p king1[:location]
+
+      puts 'king 2 location: '
+      p king2[:location]
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
         check_mate = true

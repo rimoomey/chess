@@ -66,7 +66,7 @@ end
 
 def not_block_by_capture?(king_location:, current_piece:, current_piece_location:)
   possible_captures(piece: current_piece, place: current_piece_location).each do |capture|
-    captured_piece = game_state[capture[0], capture[1]]
+    captured_piece = game_state[capture[0]][capture[1]]
     capture_piece(captor_loc: current_piece_location, captive_loc: capture)
 
     unless check?(location: king_location)

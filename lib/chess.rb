@@ -19,7 +19,7 @@ class Chess
   end
 
   def next_turn
-    (@player_turn += 1) % 2
+    @player_turn = (player_turn + 1) % 2
   end
 
   def new_game

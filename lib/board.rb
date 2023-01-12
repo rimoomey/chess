@@ -13,7 +13,7 @@ class Board
   include Check
   include CheckMate
 
-  attr_reader :game_state
+  attr_accessor :game_state
 
   DIMENSIONS = [8, 8].freeze
 

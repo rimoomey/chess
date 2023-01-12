@@ -12,6 +12,7 @@ class Board
   include Capture
   include Check
   include CheckMate
+  include StaleMate
 
   attr_accessor :game_state
 

@@ -3,9 +3,9 @@
 # IO module for chess game
 module Saving
   FILE_NAME = './config/save.yml'
-  def save
-    File.new(FILE_NAME, 'w') unless File.exist?(FILE_NAME)
-    file = File.open(FILE_NAME, 'w')
+  def save(file_name = FILE_NAME)
+    File.new(file_name, 'w') unless File.exist?(file_name)
+    file = File.open(file_name, 'w')
 
     file.puts serialize
   end
@@ -14,8 +14,8 @@ module Saving
     YAML.dump(self)
   end
 
-  def self.load
-    file_contents = File.read(FILE_NAME) if File.exist?(FILE_NAME)
+  def self.load(file_name = FILE_NAME)
+    file_contents = File.read(file_name) if File.exist?(file_name)
     deserialize(file_contents)
   end
 

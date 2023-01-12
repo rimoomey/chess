@@ -65,7 +65,7 @@ board: !ruby/object:Board
     - 0
     - !ruby/object:Pawn
       color: b
-      times_moved: 0
+      times_moved: 1
       moves:
       - - -1
         - 0
@@ -202,7 +202,7 @@ board: !ruby/object:Board
     - 0
     - !ruby/object:Pawn
       color: w
-      times_moved: 0
+      times_moved: 1
       moves:
       - - 1
         - 0
@@ -234,7 +234,7 @@ board: !ruby/object:Board
     - 0
     - !ruby/object:Pawn
       color: b
-      times_moved: 0
+      times_moved: 1
       moves:
       - - -1
         - 0

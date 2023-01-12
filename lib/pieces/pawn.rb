@@ -18,8 +18,8 @@ class Pawn < Piece
 
   def moves
     return @moves if times_moved < 1
+    return [[1, 0]] if color == 'w'
 
-    [[1, 0]] if color == 'w'
     [[-1, 0]] if color == 'b'
   end
 end

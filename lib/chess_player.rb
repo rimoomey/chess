@@ -24,7 +24,6 @@ class ChessPlayer
 
   def play(game:, king1:, king2:)
     quit_game = false
-    # check_mate = false
     until quit_game
       valid_first_move = false
       valid_second_move = false
@@ -69,12 +68,10 @@ class ChessPlayer
 
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
-        # check_mate = true
         break
       end
       if game.board.check_mate?(king: king2[:king], location: king2[:location])
         check_mate(loser_name: game.player2, winner_name: game.player1)
-        # check_mate = true
         break
       end
       if game.board.stale_mate?(king: king1[:king], location: king1[:location])
@@ -112,10 +109,8 @@ class ChessPlayer
           matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
         end
 
-        GameState.pretty_print(board: game.board)
         captured_piece = game.board.game_state[move2_arr[2][0]][move2_arr[2][1]] if move2_arr[1] == 'x'
         perform_move(board: game.board, piece: matching_pieces[0], capture: move2_arr[1], to: move2_arr[2])
-        GameState.pretty_print(board: game.board)
         pre_move_king_loc = king2[:location]
         king2[:location] = move2_arr[2] if matching_pieces[0][:piece].instance_of? King
 
@@ -133,12 +128,10 @@ class ChessPlayer
 
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
-        # check_mate = true
         break
       end
       if game.board.check_mate?(king: king2[:king], location: king2[:location])
         check_mate(loser_name: game.player2, winner_name: game.player1)
-        # check_mate = true
         break
       end
       if game.board.stale_mate?(king: king1[:king], location: king1[:location])
@@ -157,8 +150,6 @@ class ChessPlayer
   end
 
   def perform_move(board:, piece:, capture:, to:)
-    p capture
-    p to
     if capture == 'x'
       board.capture_piece(captor_loc: piece[:loc], captive_loc: to)
     else

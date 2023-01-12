@@ -6,23 +6,17 @@ class ChessPlayer
   include UI
 
   def start_game
-    start_up_prompt
-    player1 = prompt_for_name(player_num: 1)
-    player2 = prompt_for_name(player_num: 2)
-    game = Chess.new(player1: player1, player2: player2)
-
-    game.new_game
-    player1_king = { king: game.board.game_state[0][3], location: [0, 3] }
-    player2_king = { king: game.board.game_state[7][3], location: [7, 3] }
-
-    GameState.pretty_print(board: game.board)
-
-    play(game: game, king1: player1_king, king2: player2_king)
+    if start_up_prompt
+      load_start
+    else
+      standard_start
+    end
   end
 
   private
 
   def play(game:, king1:, king2:)
+    GameState.pretty_print(board: game.board) if game.player_one_turn?
     quit_game = false
     until quit_game
       valid_first_move = false
@@ -30,9 +24,19 @@ class ChessPlayer
       matching_pieces = []
 
       # player 1 turn
-      until (valid_first_move && !matching_pieces.empty?) || quit_game
+      until (valid_first_move && !matching_pieces.empty?) || quit_game || !game.player_one_turn?
         player1_move = prompt_for_move(player_name: game.player1)
         quit_game = quit?(input: player1_move)
+        save_game = save?(input: player1_move)
+
+        if save_game
+          game.save
+          game_saved
+          player1_move = prompt_for_move(player_name: game.player1)
+          quit_game = quit?(input: player1_move)
+        end
+        no_new_gameplay if save?(input: player1_move)
+
         break if quit_game
 
         valid_first_move = valid_notation?(move: player1_move)
@@ -53,6 +57,7 @@ class ChessPlayer
         perform_move(board: game.board, piece: matching_pieces[0], capture: move1_arr[1], to: move1_arr[2])
         pre_move_king_loc = king1[:location]
         king1[:location] = move1_arr[2] if matching_pieces[0][:piece].instance_of? King
+        game.next_turn
 
         next unless game.board.check?(location: king1[:location])
 
@@ -64,7 +69,7 @@ class ChessPlayer
 
       next if quit_game
 
-      GameState.pretty_print(board: game.board)
+      GameState.pretty_print(board: game.board) if game.player_two_turn?
 
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
@@ -83,17 +88,24 @@ class ChessPlayer
         break
       end
 
-      GameState.pretty_print(board: game.board)
-
       check(player_name: game.player1) if game.board.check?(location: king1[:location])
       check(player_name: game.player2) if game.board.check?(location: king2[:location])
 
       matching_pieces = []
 
       # player 2 turn
-      until (valid_second_move && !matching_pieces.empty?) || quit_game
+      until (valid_second_move && !matching_pieces.empty?) || quit_game || !game.player_two_turn?
         player2_move = prompt_for_move(player_name: game.player2)
         quit_game = quit?(input: player2_move)
+
+        if save?(input: player2_move)
+          game_saved
+          game.save
+          player2_move = prompt_for_move(player_name: game.player2)
+          quit_game = quit?(input: player2_move)
+        end
+        no_new_gameplay if save?(input: player2_move)
+
         break if quit_game
 
         valid_second_move = valid_notation?(move: player2_move)
@@ -113,6 +125,7 @@ class ChessPlayer
         perform_move(board: game.board, piece: matching_pieces[0], capture: move2_arr[1], to: move2_arr[2])
         pre_move_king_loc = king2[:location]
         king2[:location] = move2_arr[2] if matching_pieces[0][:piece].instance_of? King
+        game.next_turn
 
         next unless game.board.check?(location: king2[:location])
 
@@ -124,7 +137,7 @@ class ChessPlayer
 
       next if quit_game
 
-      GameState.pretty_print(board: game.board)
+      GameState.pretty_print(board: game.board) if game.player_one_turn?
 
       if game.board.check_mate?(king: king1[:king], location: king1[:location])
         check_mate(loser_name: game.player1, winner_name: game.player2)
@@ -163,6 +176,7 @@ class ChessPlayer
     board.add_piece(piece: captured_piece, location: to)
     board.add_piece(piece: piece[:piece], location: piece[:loc])
     piece[:piece].decrement_moves
+    game.next_turn
   end
 
   def search_for_piece(board:, piece_arr:)
@@ -186,5 +200,43 @@ class ChessPlayer
       end
     end
     matching_pieces
+  end
+
+  def standard_start
+    player1 = prompt_for_name(player_num: 1)
+    player2 = prompt_for_name(player_num: 2)
+    game = Chess.new(player1: player1, player2: player2)
+
+    game.new_game
+    player1_king = { king: game.board.game_state[0][3], location: [0, 3] }
+    player2_king = { king: game.board.game_state[7][3], location: [7, 3] }
+
+    game.save
+
+    play(game: game, king1: player1_king, king2: player2_king)
+  end
+
+  def load_start
+    begin
+      game = Saving.load
+    rescue TypeError
+      no_save_file
+      standard_start
+    end
+
+    player1_king = find_kings(board: game.board).filter { |e| e[:king].color == 'w' }.first
+    player2_king = find_kings(board: game.board).filter { |e| e[:king].color == 'b' }.first
+
+    play(game: game, king1: player1_king, king2: player2_king)
+  end
+
+  def find_kings(board:)
+    kings = []
+    board.game_state.each_with_index do |row, row_num|
+      row.each_with_index do |curr_piece, col_num|
+        kings.push({ king: curr_piece, location: [row_num, col_num] }) if curr_piece.instance_of? King
+      end
+    end
+    kings
   end
 end

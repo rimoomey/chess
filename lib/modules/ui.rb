@@ -13,10 +13,24 @@ module UI
          "To read about algebraic notation, please visit this Wikipedia article:\n" \
          "https://en.wikipedia.org/wiki/Algebraic_notation_(chess)\n\n" \
          "You may save your game at any time by typing 's' or quit by typing 'q'\n\n\n"
+    puts 'Would you like to load a previously saved game? (y/n)'
+    gets.chomp.downcase == 'y'
+  end
+
+  def no_save_file
+    puts "No saved games exist. Beginning a new game.\n"
+  end
+
+  def game_saved
+    puts "Your game has been successfully saved.\n"
+  end
+
+  def no_new_gameplay
+    puts "There are no new moves to record.\n"
   end
 
   def prompt_for_move(player_name:)
-    puts "#{player_name}, what is your move? (q to quit)"
+    puts "#{player_name}, what is your move? (q to quit, s to save)"
     puts 'Enter in algebraic notation: '
     gets.chomp
   end

@@ -86,7 +86,6 @@ end
 
 def not_block_by_movement?(king_location:, current_piece:, current_piece_location:)
   possible_moves(piece: current_piece, place: current_piece_location).each do |move|
-    GameState.pretty_print(board: self)
     move_piece(start_loc: current_piece_location, end_loc: move)
 
     unless check?(location: king_location)

@@ -7,13 +7,19 @@ require_relative 'piece_factory'
 # control game set up
 class Chess
   include GameState
+  include Saving
 
-  attr_reader :player1, :player2, :board
+  attr_reader :player1, :player2, :board, :player_turn
 
   def initialize(player1:, player2:)
     @player1 = player1
     @player2 = player2
+    @player_turn = 0 # 0 or 1
     @board = Board.new
+  end
+
+  def next_turn
+    (@player_turn += 1) % 2
   end
 
   def new_game
@@ -24,6 +30,14 @@ class Chess
     create_knights
     create_queens
     create_kings
+  end
+
+  def player_one_turn?
+    player_turn.zero?
+  end
+
+  def player_two_turn?
+    player_turn == 1
   end
 
   private

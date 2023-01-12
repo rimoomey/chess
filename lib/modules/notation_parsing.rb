@@ -4,8 +4,16 @@
 module NotationParsing
   def quit?(input:)
     return true if input.downcase == 'q'
+
     false
   end
+
+  def save?(input:)
+    return true if input.downcase == 's'
+
+    false
+  end
+
   def valid_notation?(move:)
     move.scan(/\A[KQRBN]?x?[a-h][1-8]/).include?(move)
   end

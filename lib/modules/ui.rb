@@ -30,6 +30,10 @@ module UI
     puts 'please input a legal chess move'
   end
 
+  def no_moving_into_check
+    puts 'You cannot move into check'
+  end
+
   def check(player_name:)
     puts "#{player_name} is in check."
   end

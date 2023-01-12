@@ -28,9 +28,10 @@ module Capture
 
   def valid_capture?(piece:, start_loc:, end_loc:)
     return false unless in_bounds?(point: end_loc)
-    return false if piece_blocking_capture?(start_loc: start_loc, end_loc: end_loc)
     return false unless occupied?(point: end_loc)
     return false unless diff_colors?(piece1: piece, piece2: game_state[end_loc[0]][end_loc[1]])
+    return true if piece.instance_of?(Knight)
+    return false if piece_blocking_capture?(start_loc: start_loc, end_loc: end_loc)
 
     true
   end

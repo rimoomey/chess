@@ -81,6 +81,4 @@ module GameState
     end
     puts output
   end
-
-  private
 end

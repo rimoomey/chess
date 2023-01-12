@@ -20,6 +20,8 @@ class ChessPlayer
     play(game: game, king1: player1_king, king2: player2_king)
   end
 
+  private
+
   def play(game:, king1:, king2:)
     quit_game = false
     check_mate = false
@@ -39,17 +41,41 @@ class ChessPlayer
           move1_arr = parse_notation(move: player1_move, color: 'w')
           matching_pieces = search_for_piece(board: game.board, piece_arr: move1_arr)
         end
-        invalid_move unless valid_first_move && !matching_pieces.empty?
-      end
 
-      if matching_pieces.length > 1
-        piece_location = ambiguous_choice
-        matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
+        invalid_move unless valid_first_move && !matching_pieces.empty?
+        next unless valid_first_move
+
+        if matching_pieces.length > 1
+          piece_location = ambiguous_choice
+          matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
+        end
+
+        # GameState.pretty_print(board: game.board)
+        captured_piece = game.board.game_state[move1_arr[2][0]][move1_arr[2][1]] if move1_arr[1] == 'x'
+        perform_move(board: game.board, piece: matching_pieces[0], capture: move1_arr[1], to: move1_arr[2])
+        pre_move_king_loc = king1[:location]
+        king1[:location] = move1_arr[2] if matching_pieces[0][:piece].instance_of? King
+
+        next unless game.board.check?(location: king1[:location])
+
+        # GameState.pretty_print(board: game.board)
+        reverse_move(board: game.board, piece: matching_pieces[0], captured_piece: captured_piece, to: move1_arr[2])
+        # GameState.pretty_print(board: game.board)
+        king1[:location] = pre_move_king_loc
+        no_moving_into_check
+        valid_first_move = false
       end
 
       next if quit_game || check_mate
 
+      captured_piece = game.board.game_state[move1_arr[2][0]][move1_arr[2][1]] if move1_arr[1] == 'x'
       perform_move(board: game.board, piece: matching_pieces[0], capture: move1_arr[1], to: move1_arr[2])
+      # if game.board.check?(location: king1[:location])
+      #   reverse_move(board: game.board, piece: matching_pieces[0], captured_piece: captured_piece, to: move1_arr[2])
+      #   no_moving_into_check
+      #   valid_first_move = false
+      # end
+
       king1[:location] = move1_arr[2] if matching_pieces[0][:piece].instance_of? King
       GameState.pretty_print(board: game.board)
       check(player_name: game.player1) if game.board.check?(location: king1[:location])
@@ -112,6 +138,13 @@ class ChessPlayer
     else
       board.move_piece(start_loc: piece[:loc], end_loc: to)
     end
+  end
+
+  def reverse_move(board:, piece:, captured_piece:, to:)
+    board.add_piece(piece: 0, location: to) if captured_piece.nil?
+
+    board.add_piece(piece: captured_piece, location: to)
+    board.add_piece(piece: piece[:piece], location: piece[:loc])
   end
 
   def search_for_piece(board:, piece_arr:)

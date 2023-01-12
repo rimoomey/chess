@@ -9,7 +9,8 @@ module Movement
       y1 = place[1]
       x2 = x1 + move[0]
       y2 = y1 + move[1]
-      possibles.push([x2, y2]) if valid_move?(start_loc: [x1, y1], end_loc: [x2, y2])
+
+      possibles.push([x2, y2]) if valid_move?(piece: piece, start_loc: [x1, y1], end_loc: [x2, y2])
     end
     possibles
   end
@@ -26,9 +27,16 @@ module Movement
 
   private
 
-  def valid_move?(start_loc:, end_loc:)
+  def valid_move?(piece:, start_loc:, end_loc:)
     return false unless in_bounds?(point: end_loc)
-    return false if piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
+
+    if piece.instance_of?(Knight)
+      return false if occupied?(point: end_loc)
+    elsif piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
+      return false
+    end
+
+    # return false if piece_blocking_movement?(start_loc: start_loc, end_loc: end_loc)
 
     true
   end

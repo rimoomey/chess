@@ -12,7 +12,6 @@ require_relative '../lib/modules/check_mate'
 require_relative '../lib/modules/game_state'
 require_relative '../lib/modules/movement'
 require_relative '../lib/modules/notation_parsing'
-require_relative '../lib/modules/stale_mate'
 require_relative '../lib/modules/ui'
 
 require_relative '../lib/pieces/bishop'

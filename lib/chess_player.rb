@@ -62,6 +62,7 @@ class ChessPlayer
         next unless game.board.check?(location: king1[:location])
 
         reverse_move(board: game.board, piece: matching_pieces[0], captured_piece: captured_piece, to: move1_arr[2])
+        game.next_turn
         king1[:location] = pre_move_king_loc
         no_moving_into_check
         valid_first_move = false
@@ -130,6 +131,7 @@ class ChessPlayer
         next unless game.board.check?(location: king2[:location])
 
         reverse_move(board: game.board, piece: matching_pieces[0], captured_piece: captured_piece, to: move2_arr[2])
+        game.next_turn
         king2[:location] = pre_move_king_loc
         no_moving_into_check
         valid_second_move = false
@@ -176,7 +178,6 @@ class ChessPlayer
     board.add_piece(piece: captured_piece, location: to)
     board.add_piece(piece: piece[:piece], location: piece[:loc])
     piece[:piece].decrement_moves
-    game.next_turn
   end
 
   def search_for_piece(board:, piece_arr:)

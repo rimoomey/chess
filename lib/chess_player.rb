@@ -173,8 +173,6 @@ class ChessPlayer
   end
 
   def reverse_move(board:, piece:, captured_piece:, to:)
-    board.add_piece(piece: 0, location: to) if captured_piece.nil?
-
     board.add_piece(piece: captured_piece, location: to)
     board.add_piece(piece: piece[:piece], location: piece[:loc])
     piece[:piece].decrement_moves

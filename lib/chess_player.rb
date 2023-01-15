@@ -53,7 +53,7 @@ class ChessPlayer
           matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
         end
 
-        captured_piece = game.board.game_state[move1_arr[2][0]][move1_arr[2][1]] if move1_arr[1] == 'x'
+        captured_piece = move1_arr[1] == 'x' ? game.board.game_state[move1_arr[2][0]][move1_arr[2][1]] : 0
         perform_move(board: game.board, piece: matching_pieces[0], capture: move1_arr[1], to: move1_arr[2])
         pre_move_king_loc = king1[:location]
         king1[:location] = move1_arr[2] if matching_pieces[0][:piece].instance_of? King
@@ -122,7 +122,7 @@ class ChessPlayer
           matching_pieces = [disambiguate(moves: matching_pieces, rank_and_file: piece_location)]
         end
 
-        captured_piece = game.board.game_state[move2_arr[2][0]][move2_arr[2][1]] if move2_arr[1] == 'x'
+        captured_piece = move2_arr[1] == 'x' ? game.board.game_state[move2_arr[2][0]][move2_arr[2][1]] : 0
         perform_move(board: game.board, piece: matching_pieces[0], capture: move2_arr[1], to: move2_arr[2])
         pre_move_king_loc = king2[:location]
         king2[:location] = move2_arr[2] if matching_pieces[0][:piece].instance_of? King
